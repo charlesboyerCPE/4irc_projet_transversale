@@ -12,7 +12,8 @@ public class Capteurs {
     private boolean isAlive;
     private int perimetre;
     private int intensite;
-    private final Coordonnees coord;
+
+    private Coordonnees coord;
 
     public Capteurs()
     {

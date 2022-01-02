@@ -1,24 +1,37 @@
 package commun;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
+
+import java.net.URL;
 
 public class DialogueExterneAPI
 {
     private String urlAPI;
-    private HttpURLConnection requeteHttp;
+    private HttpURLConnection connection;
 
     public DialogueExterneAPI() {
         this.urlAPI = "";
-        this.requeteHttp = null;
+        this.connection = null;
     }
 
     public DialogueExterneAPI(String urlAPI)
     {
         this.urlAPI = urlAPI;
-        this.requeteHttp = null;
+        this.connection = null;
     }
 
-    public void envoyerMessage(String message) {
+    private void creerRequete() {
+        try {
+            URL url = new URL(this.urlAPI);
+            this.connection = (HttpURLConnection) url.openConnection();
+            this.connection.setRequestMethod("POST");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void ajouterParametre() {
 
     }
 

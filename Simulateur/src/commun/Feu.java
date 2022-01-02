@@ -1,8 +1,8 @@
 package commun;
 
 public class Feu {
-    private Coordonnees coord;
     private int intensite;
+    private Coordonnees coord;
 
     public Feu()
     {
@@ -17,10 +17,10 @@ public class Feu {
     }
 
     public Coordonnees getCoord() {
-        return coord;
+        return this.coord;
     }
 
     public int getIntensite() {
-        return intensite;
+        return this.intensite;
     }
 }
