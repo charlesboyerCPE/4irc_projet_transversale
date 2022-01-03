@@ -4,11 +4,8 @@
 
 function carte()
 {
-
-    require('vue/carte.php');
+   require('vue/carte.php');
 }
-
-
 
 
 function dashboard()
