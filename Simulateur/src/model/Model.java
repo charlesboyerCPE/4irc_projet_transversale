@@ -9,10 +9,9 @@
 package model;
 
 import commun.Capteurs;
-import commun.DialogueExterneAPI;
+import commun.api.DialogueExterneAPI;
 import commun.Feu;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
