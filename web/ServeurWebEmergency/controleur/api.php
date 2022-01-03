@@ -49,6 +49,7 @@ function api_casernes(){
 }
 
 //Constitution
+/*
 function api_constitution($id){
     $constitution = new Constitution;
     $listeConstitution = $constitution->getConstitutionById($id);
@@ -60,6 +61,7 @@ function api_constitutions(){
     $listeConstitutions = $constitution->getAllConstitutions();
     echo json_encode($listeConstitutions);
 }
+*/
 
 //Equipe
 function api_equipe($id){
