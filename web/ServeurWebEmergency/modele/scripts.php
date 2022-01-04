@@ -2,6 +2,8 @@
 
 require_once ('./BDD.php');
 
+
+
 $arrayConsultation = array();
         $bdd = connectDb();
         $req = $bdd->query('SELECT * FROM capteur');
@@ -10,5 +12,8 @@ $arrayConsultation = array();
         foreach($resultat as $row) { 
                 echo $row['id_capteur'];
         }
+
+
+
 
 ?>
