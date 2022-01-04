@@ -16,6 +16,7 @@ public class DialogueExterneAPI
 {
     private String urlAPI;
     private HttpURLConnection connection;
+
     private final Logger logger;
 
     public DialogueExterneAPI() {
@@ -58,7 +59,7 @@ public class DialogueExterneAPI
             // Création requête
             creerRequete("GET", url);
             codeRetour = this.connection.getResponseCode();
-            logger.info("Code Retour HTTP: " + codeRetour + " " + this.connection.getResponseMessage());
+            logger.info("Connexion API: " + codeRetour + " " + this.connection.getResponseMessage());
 
             if(codeRetour == HttpURLConnection.HTTP_OK) {
 
@@ -109,7 +110,6 @@ public class DialogueExterneAPI
                     contenuToString.add(contenu.get(i).toString());
                 }
                 String contenuString = contenuToString.toString();
-                logger.info("JSON convertie en String : " + contenuString);
 
                 // Conversion du String Array en byte[]
                 byte[] data = contenuString.getBytes(StandardCharsets.UTF_8);
@@ -121,9 +121,9 @@ public class DialogueExterneAPI
                 // Récupération de la réponse de l'API
                 codeRetour = this.connection.getResponseCode();
                 if(codeRetour == HttpURLConnection.HTTP_CREATED) {
-                    logger.info("PUT Effectué: " + codeRetour);
+                    logger.info("MaJ des données effectuées: " + codeRetour + " " + this.connection.getResponseMessage());
                 } else {
-                    logger.info("ERREUR Put : " + codeRetour + " " + this.connection.getResponseMessage());
+                    logger.info("ERREUR MaJ Données : " + codeRetour + " " + this.connection.getResponseMessage());
                 }
 
                 // Fermeture de la connexion
