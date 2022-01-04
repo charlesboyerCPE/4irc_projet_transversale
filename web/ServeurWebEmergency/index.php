@@ -10,86 +10,326 @@ $params = explode('/', htmlspecialchars(rtrim($_GET['action'],'/')));
 
 if($params[0] == "api"){  
     
-    
-    /*
-     /api/feu/id/
-     /api/feux/
-    */
-   insert(1);
-
    $request_method = $_SERVER["REQUEST_METHOD"];
    switch($request_method){
        case 'GET':
-            // Capteur par id
-            if($params[1]=="capteur"){
+        //Camion
+            if($params[1]=="camion"){
                 if(isset($params[2])){
-                    api_capteur($params[2]);
+                    api_get_camion($params[2]);
                 }
                 else{
                     header("HTTP/1.0 405 Method Not Allowed");
                     break;
                 }
             }
-            // Capteurs
-            elseif($params[1]=="capteurs"){
-                if(!isset($params[2])){
-                    api_capteurs();
-                }
-                else{
-                    header("HTTP/1.0 404 Not Found");
-                    break;
-                }
-            }
-            //FEU PAR ID
-            elseif($params[1]=="feu"){
-                if(isset($params[2])){
-                    api_feu($params[2]);
-                }
-                else{
-                    header("HTTP/1.0 405 Method Not Allowed");
-                    break;
-                }
-            }
-           // FEUX
-            elseif($params[1]=="feux"){
-                if(!isset($params[2])){
-                    api_feux();
-                }
-                else{
-                    header("HTTP/1.0 404 Not Found");
-                    break;
-                }
-            }
-           // CAMION PAR ID
-            elseif($params[1]=="camion"){
-                if(isset($params[2])){
-                    api_camion($params[2]);
-                }
-                else{
-                    header("HTTP/1.0 405 Method Not Allowed");
-                    break;
-                }
-            }
-           // CAMIONS
             elseif($params[1]=="camions"){
                 if(!isset($params[2])){
-                    api_camions();
+                    api_get_camions();
                 }
                 else{
                     header("HTTP/1.0 404 Not Found");
                     break;
                 }
             }
-
-
-           else{
+        //Capteur
+            elseif($params[1]=="capteur"){
+                if(isset($params[2])){
+                    api_get_capteur($params[2]);
+                }
+                else{
+                    header("HTTP/1.0 405 Method Not Allowed");
+                    break;
+                }
+            }
+            elseif($params[1]=="capteurs"){
+                if(!isset($params[2])){
+                    api_get_capteurs();
+                }
+                else{
+                    header("HTTP/1.0 404 Not Found");
+                    break;
+                }
+            }
+        //Caserne
+            elseif($params[1]=="caserne"){
+                if(isset($params[2])){
+                    api_get_caserne($params[2]);
+                }
+                else{
+                    header("HTTP/1.0 405 Method Not Allowed");
+                    break;
+                }
+            }
+            elseif($params[1]=="casernes"){
+                if(!isset($params[2])){
+                    api_get_casernes();
+                }
+                else{
+                    header("HTTP/1.0 404 Not Found");
+                    break;
+                }
+            }
+        //Constitution ?
+        //Equipe
+            elseif($params[1]=="equipe"){
+                if(isset($params[2])){
+                    api_get_equipe($params[2]);
+                }
+                else{
+                    header("HTTP/1.0 405 Method Not Allowed");
+                    break;
+                }
+            }
+            elseif($params[1]=="equipes"){
+                if(!isset($params[2])){
+                    api_get_equipes();
+                }
+                else{
+                    header("HTTP/1.0 404 Not Found");
+                    break;
+                }
+            }
+        //Feu
+            elseif($params[1]=="feu"){
+                if(isset($params[2])){
+                    api_get_feu($params[2]);
+                }
+                else{
+                    header("HTTP/1.0 405 Method Not Allowed");
+                    break;
+                }
+            }
+            elseif($params[1]=="feux"){
+                if(!isset($params[2])){
+                    api_get_feux();
+                }
+                else{
+                    header("HTTP/1.0 404 Not Found");
+                    break;
+                }
+            }
+        //Operation
+            elseif($params[1]=="operation"){
+                if(isset($params[2])){
+                    api_get_operation($params[2]);
+                }
+                else{
+                    header("HTTP/1.0 405 Method Not Allowed");
+                    break;
+                }
+            }
+            elseif($params[1]=="operations"){
+                if(!isset($params[2])){
+                    api_get_operations();
+                }
+                else{
+                    header("HTTP/1.0 404 Not Found");
+                    break;
+                }
+            }
+        //Pompier
+            elseif($params[1]=="pompier"){
+                if(isset($params[2])){
+                    api_get_pompier($params[2]);
+                }
+                else{
+                    header("HTTP/1.0 405 Method Not Allowed");
+                    break;
+                }
+            }
+            elseif($params[1]=="pompiers"){
+                if(!isset($params[2])){
+                    api_get_pompiers();
+                }
+                else{
+                    header("HTTP/1.0 404 Not Found");
+                    break;
+                }
+            }
+            else{
                 header("HTTP/1.0 404 Not Found");
                 break;
             }
             break;
-            default:
-            header("HTTP/1.0 405 Method Not Allowed");
-            break;
+        
+            
+            
+            case 'PUT':
+
+                //Camion
+                    if($params[1]=="camion"){
+                        if(isset($params[2])){
+                            api_put_camion($params[2]);
+                        }
+                        else{
+                            header("HTTP/1.0 405 Method Not Allowed");
+                            break;
+                        }
+                    }
+                    elseif($params[1]=="camions"){
+                        if(!isset($params[2])){
+
+/* METHODE 1 JSON
+
+    if ($_SERVER['REQUEST_METHOD'] == 'PUT')
+{
+  $_PUT = array();
+  parse_str(file_get_contents("php://input"), $_PUT);
+  foreach ($_PUT as $key => $value)
+  {
+    echo $key . " : " . $value;
+  }
+}
+
+*/
+/* METHODE 2 JSON
+
+$decoded_input = json_decode(file_get_contents("php://input"), true);
+//Here you have usual php array stored in $decoded_input. Do some stuff with it.
+header('Content-type: application/json');
+echo json_encode($decoded_input);
+
+*/
+
+
+
+                            //api_put_camions();
+                        }
+                        else{
+                            header("HTTP/1.0 404 Not Found");
+                            break;
+                        }
+                    }
+
+                //Capteur
+                    //else
+/*
+                    if($params[1]=="capteur"){
+                        if(isset($params[2])){
+                            api_put_capteur($params[2]);
+                        }
+                        else{
+                            header("HTTP/1.0 405 Method Not Allowed");
+                            break;
+                        }
+                    }
+                    elseif($params[1]=="capteurs"){
+                        if(!isset($params[2])){
+                            api_put_capteurs();
+                        }
+                        else{
+                            header("HTTP/1.0 404 Not Found");
+                            break;
+                        }
+                    }
+*/
+/*
+                //Caserne
+                    elseif($params[1]=="caserne"){
+                        if(isset($params[2])){
+                            api_put_caserne($params[2]);
+                        }
+                        else{
+                            header("HTTP/1.0 405 Method Not Allowed");
+                            break;
+                        }
+                    }
+                    elseif($params[1]=="casernes"){
+                        if(!isset($params[2])){
+                            api_put_casernes();
+                        }
+                        else{
+                            header("HTTP/1.0 404 Not Found");
+                            break;
+                        }
+                    }
+                //Constitution ?
+                //Equipe
+                    elseif($params[1]=="equipe"){
+                        if(isset($params[2])){
+                            api_put_equipe($params[2]);
+                        }
+                        else{
+                            header("HTTP/1.0 405 Method Not Allowed");
+                            break;
+                        }
+                    }
+                    elseif($params[1]=="equipes"){
+                        if(!isset($params[2])){
+                            api_put_equipes();
+                        }
+                        else{
+                            header("HTTP/1.0 404 Not Found");
+                            break;
+                        }
+                    }
+                //Feu
+                    elseif($params[1]=="feu"){
+                        if(isset($params[2])){
+                            api_put_feu($params[2]);
+                        }
+                        else{
+                            header("HTTP/1.0 405 Method Not Allowed");
+                            break;
+                        }
+                    }
+                    elseif($params[1]=="feux"){
+                        if(!isset($params[2])){
+                            api_put_feux();
+                        }
+                        else{
+                            header("HTTP/1.0 404 Not Found");
+                            break;
+                        }
+                    }
+                //Operation
+                    elseif($params[1]=="operation"){
+                        if(isset($params[2])){
+                            api_put_operation($params[2]);
+                        }
+                        else{
+                            header("HTTP/1.0 405 Method Not Allowed");
+                            break;
+                        }
+                    }
+                    elseif($params[1]=="operations"){
+                        if(!isset($params[2])){
+                            api_put_operations();
+                        }
+                        else{
+                            header("HTTP/1.0 404 Not Found");
+                            break;
+                        }
+                    }
+                //Pompier
+                    elseif($params[1]=="pompier"){
+                        if(isset($params[2])){
+                            api_put_pompier($params[2]);
+                        }
+                        else{
+                            header("HTTP/1.0 405 Method Not Allowed");
+                            break;
+                        }
+                    }
+                    elseif($params[1]=="pompiers"){
+                        if(!isset($params[2])){
+                            api_put_pompiers();
+                        }
+                        else{
+                            header("HTTP/1.0 404 Not Found");
+                            break;
+                        }
+                    }
+    */
+                    else{
+                        header("HTTP/1.0 404 Not Found");
+                        break;
+                    }
+                    break;
+
+
+    //case 'DELETE':
    }
    exit();
 
@@ -101,9 +341,11 @@ if($params[0] == "api"){
 }
 elseif($params[0] == "getCarte"){
     carte();
-}elseif($params[0] == "getDashboard"){
+}
+elseif($params[0] == "getDashboard"){
     dashboard();
-}else{
+}
+else{
     carte();
 }
 
@@ -123,4 +365,29 @@ elseif($params[0] == "getCarte"){
 
 
 
-}*/
+//methode 1
+    if ($_SERVER['REQUEST_METHOD'] == 'PUT')
+{
+  $_PUT = array();
+  parse_str(file_get_contents("php://input"), $_PUT);
+  foreach ($_PUT as $key => $value)
+  {
+    echo $key . " : " . $value;
+  }
+}
+
+//methode 2
+
+$decoded_input = json_decode(file_get_contents("php://input"), true);
+//Here you have usual php array stored in $decoded_input. Do some stuff with it.
+header('Content-type: application/json');
+echo json_encode($decoded_input);
+
+}
+
+
+insertion ou update 
+INSERT INTO TABLE COLONNE1, COLONNE5, COLONNE8 VALUES (valeurs1, valeurs5, valeurs8)
+ON DUPLICATE KEY UPDATE COLONNE5 = valeurs5, COLONNE8 = valeurs8
+
+*/
