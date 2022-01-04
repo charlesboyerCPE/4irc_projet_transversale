@@ -25,7 +25,7 @@
             return $resultat;
         }
 
-        function setAllCamions($data){
+        function putAllCamions($data){
             /*
             $sql = "SELECT * FROM Camion";
             $query = $this->_connexion->prepare($sql);
@@ -36,7 +36,7 @@
             */
         }
 
-        function setCamionById($id){
+        function putCamionById($id){
             /*
             $sql = " SELECT * FROM Camion WHERE id_camion = $id "; 
             $query = $this->_connexion->prepare($sql);

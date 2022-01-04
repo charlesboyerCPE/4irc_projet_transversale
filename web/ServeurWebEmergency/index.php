@@ -8,6 +8,10 @@ $params = explode('/', htmlspecialchars(rtrim($_GET['action'],'/')));
 //if(!empty($params[0])) test();
 //$params[0]();
 
+$ess = '[{"id_capteur":"4","perimetre":"6","coordonnee_x":"5","intensite":"5","coordonnee_y":"5"}]';
+
+//api_put_capteurs($ess);
+
 if($params[0] == "api"){  
     
    $request_method = $_SERVER["REQUEST_METHOD"];
@@ -156,7 +160,7 @@ if($params[0] == "api"){
             
             
             case 'PUT':
-
+/*
                 //Camion
                     if($params[1]=="camion"){
                         if(isset($params[2])){
@@ -170,27 +174,7 @@ if($params[0] == "api"){
                     elseif($params[1]=="camions"){
                         if(!isset($params[2])){
 
-/* METHODE 1 JSON
 
-    if ($_SERVER['REQUEST_METHOD'] == 'PUT')
-{
-  $_PUT = array();
-  parse_str(file_get_contents("php://input"), $_PUT);
-  foreach ($_PUT as $key => $value)
-  {
-    echo $key . " : " . $value;
-  }
-}
-
-*/
-/* METHODE 2 JSON
-
-$decoded_input = json_decode(file_get_contents("php://input"), true);
-//Here you have usual php array stored in $decoded_input. Do some stuff with it.
-header('Content-type: application/json');
-echo json_encode($decoded_input);
-
-*/
 
 
 
@@ -201,29 +185,29 @@ echo json_encode($decoded_input);
                             break;
                         }
                     }
-
+*/
                 //Capteur
                     //else
-/*
-                    if($params[1]=="capteur"){
-                        if(isset($params[2])){
-                            api_put_capteur($params[2]);
-                        }
-                        else{
-                            header("HTTP/1.0 405 Method Not Allowed");
-                            break;
-                        }
-                    }
-                    elseif($params[1]=="capteurs"){
+
+                    if($params[1]=="capteurs"){
                         if(!isset($params[2])){
-                            api_put_capteurs();
+                        /* Les données PUT arrivent du flux */
+                            $chaine ='';
+                            $putdata = fopen("php://input", "r");
+                        /* Lecture des données, 1 Ko à la fois et écriture dans le fichier */
+                            while ($data = fread($putdata, 1024)){
+                                $chaine.= $data;
+                            }
+                            error_log('chaine : '.$chaine);
+                            api_put_capteurs($chaine);
+                            header("HTTP/1.0 201 CREATED");
                         }
                         else{
                             header("HTTP/1.0 404 Not Found");
                             break;
                         }
                     }
-*/
+
 /*
                 //Caserne
                     elseif($params[1]=="caserne"){
