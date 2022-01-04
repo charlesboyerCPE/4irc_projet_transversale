@@ -3,12 +3,13 @@
 package commun.api;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class DialogueExterneAPI
@@ -46,9 +47,12 @@ public class DialogueExterneAPI
 
     public JSONArray getDonnees(String url) {
         int codeRetour = -1;
+        String ligne = "";
+
         JSONArray json = null;
         StringBuilder reponse = null;
-        String ligne = "";
+        InputStream is = null;
+        BufferedReader rd = null;
 
         try {
             // Création requête
@@ -59,8 +63,8 @@ public class DialogueExterneAPI
             if(codeRetour == HttpURLConnection.HTTP_OK) {
 
                 // Lecture réponse
-                InputStream is = this.connection.getInputStream();
-                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                is = this.connection.getInputStream();
+                rd = new BufferedReader(new InputStreamReader(is));
                 reponse = new StringBuilder();
 
                 // Affectation de la réponse dans une String
@@ -70,6 +74,10 @@ public class DialogueExterneAPI
 
                 // Parser la réponse
                 json = new JSONArray(reponse.toString());
+
+                // Fermeture de la connexion
+                is.close();
+                logger.info("Connexion fermée");
 
             } else {
                 logger.info("ERREUR Code Retour HTTP: " + codeRetour + " " + this.connection.getResponseMessage());
@@ -81,10 +89,8 @@ public class DialogueExterneAPI
         return json;
     }
 
-    public int setDonnees(String url, JSONObject contenu) {
+    public int setDonnees(String url, JSONArray contenu) {
         int codeRetour = -1;
-        StringBuilder reponse = null;
-        String ligne = "";
 
         try {
             // Création requête
@@ -92,17 +98,25 @@ public class DialogueExterneAPI
             this.connection.setDoOutput(true);
             this.connection.setRequestProperty("Accept", "application/json");
 
-            codeRetour = this.connection.getResponseCode();
+            codeRetour = 200;
             logger.info("Code Retour HTTP: " + codeRetour);
 
             if(codeRetour == HttpURLConnection.HTTP_OK) {
 
-                // Récupération du JSON
-                byte[] out = contenu.toString().getBytes(StandardCharsets.UTF_8);
+                // Conversion du JSONArray en String
+                List<String> contenuToString = new ArrayList<String>();
+                for(int i=0; i < contenu.length(); i++) {
+                    contenuToString.add(contenu.get(i).toString());
+                }
+                String contenuString = contenuToString.toString();
+                logger.info("JSON convertie en String : " + contenuString);
 
-                // Récupération du flux et écriture
+                // Conversion du String Array en byte[]
+                byte[] data = contenuString.getBytes(StandardCharsets.UTF_8);
+
+                // Récupération du flux et écriture à l'intérieur
                 OutputStream os = this.connection.getOutputStream();
-                os.write(out);
+                os.write(data);
 
                 // Récupération de la réponse de l'API
                 codeRetour = this.connection.getResponseCode();
@@ -111,6 +125,11 @@ public class DialogueExterneAPI
                 } else {
                     logger.info("ERREUR Put : " + codeRetour + " " + this.connection.getResponseMessage());
                 }
+
+                // Fermeture de la connexion
+                os.close();
+                logger.info("Connexion fermée");
+
             } else {
                 logger.info("ERREUR Code Retour HTTP: " + codeRetour + " " + this.connection.getResponseMessage());
             }
@@ -140,6 +159,7 @@ public class DialogueExterneAPI
 
         return codeRetour;
     }
+
 
     public String getUrlAPI()
     {

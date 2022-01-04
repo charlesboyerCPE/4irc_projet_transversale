@@ -8,6 +8,9 @@
 
 package commun;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Capteurs {
     private int id;
     private boolean isAlive;
@@ -26,10 +29,27 @@ public class Capteurs {
     }
 
     public Capteurs(int x, int y) {
+        this.id = 0;
         this.isAlive = true;
         this.intensite = 0;
         this.perimetre = 10;
         this.coord = new Coordonnees(x, y);
+    }
+
+    public Capteurs(int id, boolean isAlive, int intensite, int perimetre, int x, int y) {
+        this.id = 0;
+        this.isAlive = true;
+        this.intensite = 0;
+        this.perimetre = 10;
+        this.coord = new Coordonnees(x, y);
+    }
+
+    public Capteurs(JSONObject json) {
+        this.id = json.getInt("id_capteur");
+        this.isAlive = true;
+        this.intensite = json.getInt("intensite");
+        this.perimetre = json.getInt("perimetre");
+        this.coord = new Coordonnees(json.getFloat("coordonnee_x"), json.getFloat("coordonnee_y"));
     }
 
     public boolean isAlive() {
@@ -42,5 +62,16 @@ public class Capteurs {
 
     public int getIntensite() {
         return intensite;
+    }
+
+    @Override
+    public String toString() {
+        return "Capteurs {\n" +
+                "\tid=" + id +
+                "\n\tisAlive=" + isAlive +
+                "\n\tperimetre=" + perimetre +
+                "\n\tintensite=" + intensite +
+                "\n\tcoord=" + coord +
+                " \n}";
     }
 }

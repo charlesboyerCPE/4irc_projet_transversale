@@ -9,10 +9,13 @@
 package model;
 
 import commun.Capteurs;
+import commun.Coordonnees;
 import commun.api.DialogueExterneAPI;
 import commun.Feu;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -23,7 +26,7 @@ public class Model
     private List<Feu> collectionFeu;
     private List<Camion> collectionCamion;
     private DialogueExterneAPI api;
-    private JSONObject json;
+    private JSONArray json;
 
     private final String ADRESSE_SERVEUR = "192.168.31.9";
     private final String URL_API = "http://" + ADRESSE_SERVEUR + ":80/4irc_projet_transversale/web/ServeurWebEmergency/api/";
@@ -35,11 +38,11 @@ public class Model
      * @author Charles BOYER
      */
     public Model() {
-        this.collectionCapteurs = null;
+        this.collectionCapteurs = new ArrayList<Capteurs>();
         this.collectionFeu = null;
         this.collectionCamion = null;
         this.api = null;
-        this.json = new JSONObject();
+        this.json = new JSONArray();
         this.logger = Logger.getLogger(String.valueOf(Model.class));
     }
 
@@ -70,10 +73,27 @@ public class Model
      * TODO : Faire la méthode
      */
     public void initialiserCapteursBDD() {
-        this.api = new DialogueExterneAPI(URL_API);
+        int i = 0;
+        int codeRetour = -1;
 
-        this.json = this.api.getDonnees("capteurs").getJSONObject(0);
+        this.api = new DialogueExterneAPI(URL_API);
+/*
+        // Récupération de tous les capteurs de la base de données
+        this.json = this.api.getDonnees("capteurs");
         logger.info("JSON Reçu : " + this.json);
+
+        // Création des objets Capteurs
+        for (i = 0; i < this.json.length(); i++) {
+            collectionCapteurs.add(new Capteurs(this.json.getJSONObject(i)));
+            logger.info("Capteurs récupéré : \n" + collectionCapteurs.get(i).toString());
+        }
+*/
+        // TEST PUT
+        DialogueExterneAPI api = new DialogueExterneAPI(URL_API);
+        String test = "[{\"id_capteur\":\"4\",\"perimetre\":\"7\",\"coordonnee_x\":\"5\",\"intensite\":\"5\",\"coordonnee_y\":\"5\"}]";
+        JSONArray tabJson = new JSONArray(test);
+
+        api.setDonnees("capteurs", tabJson);
     }
 
     /**
