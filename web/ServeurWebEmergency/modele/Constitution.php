@@ -15,4 +15,5 @@
             //var_dump($resultat);
             return $resultat;
         }
+    }
 ?>
