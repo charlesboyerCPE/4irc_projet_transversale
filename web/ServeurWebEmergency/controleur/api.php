@@ -22,11 +22,6 @@ function api_get_camions(){
     echo json_encode($listeCamions);
 }
 
-function api_put_camion($id){
-    $camion = new Camion;
-    $listeCamion = $camion->putCamionById($id);
-}
-
 function api_put_camions($data){
     $camion = new Camion;
     $listeCamions = $camion->putAllCamions($data);
@@ -45,11 +40,6 @@ function api_get_capteurs(){
     echo json_encode($listeCapteurs);
 }
 
-function api_put_capteur($id){
-    $capteur = new Capteur;
-    $listeCapteur = $capteur->putCapteurById($id);
-}
-
 function api_put_capteurs($data){
     $capteur = new Capteur;
     $listeCapteurs = $capteur->putAllCapteurs($data);
@@ -66,11 +56,6 @@ function api_get_casernes(){
     $caserne = new Caserne;
     $listeCasernes = $caserne->getAllCasernes();
     echo json_encode($listeCasernes);
-}
-
-function api_put_caserne($id){
-    $caserne = new Caserne;
-    $listeCaserne = $caserne->putCaserneById($id);
 }
 
 function api_put_casernes($data){
@@ -106,11 +91,6 @@ function api_get_equipes(){
     echo json_encode($listeEquipes);
 }
 
-function api_put_equipe($id){
-    $equipe = new Equipe;
-    $listeEquipe = $equipe->putEquipeById($id);
-}
-
 function api_put_equipes($data){
     $equipe = new Equipe;
     $listeEquipes = $equipe->putAllEquipes($data);
@@ -127,11 +107,6 @@ function api_get_feux(){
     $feu = new Feu;
     $listeFeux = $feu->getAllFeux();
     echo json_encode($listeFeux);
-}
-
-function api_put_feu($id){
-    $feu = new Feu;
-    $listeFeu = $feu->putFeuById($id);
 }
 
 function api_put_feux($data){
@@ -153,11 +128,6 @@ function api_get_operations(){
     echo json_encode($listeOperations);
 }
 
-function api_put_operation($id){
-    $operation = new Operation;
-    $listeOperation = $operation->putOperationById($id);
-}
-
 function api_put_operations($data){
     $operation = new Operation;
     $listeOperations = $operation->putAllOperations($data);
@@ -174,11 +144,6 @@ function api_get_pompiers(){
     $pompier = new Pompier;
     $listePompiers = $pompier->getAllPompiers();
     echo json_encode($listePompiers);
-}
-
-function api_put_pompier($id){
-    $pompier = new Pompier;
-    $listePompier = $pompier->putPompierById($id);
 }
 
 function api_put_pompiers($data){
