@@ -1,7 +1,8 @@
-//TODO A TESTER PUT et en-tête Content-Length
+//TODO A TESTER PUT et en-tête Content-Length (nombre d'octet)
 
 package commun.api;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -36,14 +37,16 @@ public class DialogueExterneAPI
             this.connection.setRequestMethod(methode);
             this.connection.setRequestProperty("Content-Type", "application/json; utf-8");
 
+            logger.info("Connexion à l'URL : " + urlAPI + urlFin);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public JSONObject getDonnees(String url) {
+    public JSONArray getDonnees(String url) {
         int codeRetour = -1;
-        JSONObject json = null;
+        JSONArray json = null;
         StringBuilder reponse = null;
         String ligne = "";
 
@@ -51,7 +54,7 @@ public class DialogueExterneAPI
             // Création requête
             creerRequete("GET", url);
             codeRetour = this.connection.getResponseCode();
-            logger.info("Code Retour HTTP: " + codeRetour);
+            logger.info("Code Retour HTTP: " + codeRetour + " " + this.connection.getResponseMessage());
 
             if(codeRetour == HttpURLConnection.HTTP_OK) {
 
@@ -66,10 +69,10 @@ public class DialogueExterneAPI
                 }
 
                 // Parser la réponse
-                json = new JSONObject(reponse.toString());
+                json = new JSONArray(reponse.toString());
 
             } else {
-                logger.info("ERREUR Code Retour HTTP: " + codeRetour);
+                logger.info("ERREUR Code Retour HTTP: " + codeRetour + " " + this.connection.getResponseMessage());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -106,10 +109,10 @@ public class DialogueExterneAPI
                 if(codeRetour == HttpURLConnection.HTTP_CREATED) {
                     logger.info("PUT Effectué: " + codeRetour);
                 } else {
-                    logger.info("ERREUR Put : " + codeRetour);
+                    logger.info("ERREUR Put : " + codeRetour + " " + this.connection.getResponseMessage());
                 }
             } else {
-                logger.info("ERREUR Code Retour HTTP: " + codeRetour);
+                logger.info("ERREUR Code Retour HTTP: " + codeRetour + " " + this.connection.getResponseMessage());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,8 +123,22 @@ public class DialogueExterneAPI
 
 
     public int deleteDonnees(String url) {
-        // Création requête
-        creerRequete("DELETE", url);
+        int codeRetour = -1;
+
+        try {
+            // Création requête
+            creerRequete("DELETE", url);
+            codeRetour = this.connection.getResponseCode();
+            logger.info("Code Retour HTTP: " + codeRetour);
+
+            if(codeRetour == HttpURLConnection.HTTP_ACCEPTED) {
+                logger.info("DELETE Effectue: " + codeRetour);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return codeRetour;
     }
 
     public String getUrlAPI()

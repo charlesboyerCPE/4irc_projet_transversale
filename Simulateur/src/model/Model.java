@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class Model
 {
@@ -23,6 +24,10 @@ public class Model
     private List<Camion> collectionCamion;
     private DialogueExterneAPI api;
     private JSONObject json;
+
+    private final String ADRESSE_SERVEUR = "192.168.31.9";
+    private final String URL_API = "http://" + ADRESSE_SERVEUR + ":80/4irc_projet_transversale/web/ServeurWebEmergency/api/";
+    private final Logger logger;
 
     /**
      * Constructeur par défaut de la classe Model
@@ -34,7 +39,8 @@ public class Model
         this.collectionFeu = null;
         this.collectionCamion = null;
         this.api = null;
-        this.json = null;
+        this.json = new JSONObject();
+        this.logger = Logger.getLogger(String.valueOf(Model.class));
     }
 
     /**
@@ -59,15 +65,15 @@ public class Model
      * Les capteurs sont récupérés de la base de données de simulation
      *
      * @return      Ne retourne rien
-     * @param       nbCapteurs Le nombre de capteurs à instancier
      *
      * @author Charles BOYER
      * TODO : Faire la méthode
      */
-    public void initialiserCapteursBDD(int nbCapteurs) {
-        for (int i = 0; i < nbCapteurs; i++) {
-            collectionCapteurs.set(i, new Capteurs());
-        }
+    public void initialiserCapteursBDD() {
+        this.api = new DialogueExterneAPI(URL_API);
+
+        this.json = this.api.getDonnees("capteurs").getJSONObject(0);
+        logger.info("JSON Reçu : " + this.json);
     }
 
     /**

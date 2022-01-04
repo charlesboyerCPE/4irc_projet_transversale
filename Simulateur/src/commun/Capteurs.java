@@ -9,6 +9,7 @@
 package commun;
 
 public class Capteurs {
+    private int id;
     private boolean isAlive;
     private int perimetre;
     private int intensite;
@@ -17,6 +18,7 @@ public class Capteurs {
 
     public Capteurs()
     {
+        this.id = 0;
         this.isAlive = true;
         this.intensite = 0;
         this.perimetre = 10;

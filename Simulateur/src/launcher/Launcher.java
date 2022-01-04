@@ -12,10 +12,9 @@ import controller.Controller;
 
 public class Launcher {
 
-    private Controller controller;
-
     // Cette méthode permet de lancer le simulateur
     public static void main(String[] args) {
-
+        Controller controller = new Controller();
+        controller.initialiserSimulation();
     }
 }
