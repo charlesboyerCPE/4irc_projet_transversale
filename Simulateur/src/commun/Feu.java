@@ -1,6 +1,7 @@
 package commun;
 
 public class Feu {
+
     private int intensite;
     private Coordonnees coord;
 

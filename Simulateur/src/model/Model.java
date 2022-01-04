@@ -11,6 +11,7 @@ package model;
 import commun.Capteurs;
 import commun.api.DialogueExterneAPI;
 import commun.Feu;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Random;
@@ -21,6 +22,7 @@ public class Model
     private List<Feu> collectionFeu;
     private List<Camion> collectionCamion;
     private DialogueExterneAPI api;
+    private JSONObject json;
 
     /**
      * Constructeur par défaut de la classe Model
@@ -28,10 +30,11 @@ public class Model
      * @author Charles BOYER
      */
     public Model() {
-        collectionCapteurs = null;
-        collectionFeu = null;
-        collectionCamion = null;
-        api = null;
+        this.collectionCapteurs = null;
+        this.collectionFeu = null;
+        this.collectionCamion = null;
+        this.api = null;
+        this.json = null;
     }
 
     /**

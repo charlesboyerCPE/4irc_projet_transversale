@@ -1,77 +1,128 @@
+//TODO A TESTER PUT et en-tête Content-Length
+
 package commun.api;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
+import org.json.JSONObject;
 
-import java.net.ProtocolException;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 
 public class DialogueExterneAPI
 {
     private String urlAPI;
     private HttpURLConnection connection;
+    private final Logger logger;
 
     public DialogueExterneAPI() {
         this.urlAPI = "";
         this.connection = null;
+        logger = Logger.getLogger(String.valueOf(DialogueExterneAPI.class));
     }
 
     public DialogueExterneAPI(String urlAPI)
     {
         this.urlAPI = urlAPI;
         this.connection = null;
+        logger = Logger.getLogger(String.valueOf(DialogueExterneAPI.class));
     }
 
-    private void creerRequete() {
+    private void creerRequete(String methode, String urlFin) {
         try {
-            URL url = new URL(this.urlAPI);
-            this.connection = (HttpURLConnection) url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void ajouterParametres() {
-        try {
-            this.connection.setRequestMethod("POST");
+            URL urlComplete = new URL(urlAPI + urlFin);
+            this.connection = (HttpURLConnection) urlComplete.openConnection();
+            this.connection.setRequestMethod(methode);
             this.connection.setRequestProperty("Content-Type", "application/json; utf-8");
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        }
-    }
 
-    private void ajouterFichier(String fichier) {
-        try {
-            OutputStream os = this.connection.getOutputStream();
-
-            // Récupération du fichier sous forme de tableau de bytes
-            byte[] input = fichier.getBytes(StandardCharsets.UTF_8);
-
-            // Ecriture dans le flux
-            os.write(input, 0, input.length);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void getDonnees(JSONObject message) {
-        this.connection.setDoOutput(true);
+    public JSONObject getDonnees(String url) {
+        int codeRetour = -1;
+        JSONObject json = null;
+        StringBuilder reponse = null;
+        String ligne = "";
+
+        try {
+            // Création requête
+            creerRequete("GET", url);
+            codeRetour = this.connection.getResponseCode();
+            logger.info("Code Retour HTTP: " + codeRetour);
+
+            if(codeRetour == HttpURLConnection.HTTP_OK) {
+
+                // Lecture réponse
+                InputStream is = this.connection.getInputStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                reponse = new StringBuilder();
+
+                // Affectation de la réponse dans une String
+                while ((ligne = rd.readLine()) != null) {
+                    reponse.append(ligne);
+                }
+
+                // Parser la réponse
+                json = new JSONObject(reponse.toString());
+
+            } else {
+                logger.info("ERREUR Code Retour HTTP: " + codeRetour);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return json;
     }
 
-    public void setDonnees(JSON message) {
-        this.connection.setDoOutput(true);
+    public int setDonnees(String url, JSONObject contenu) {
+        int codeRetour = -1;
+        StringBuilder reponse = null;
+        String ligne = "";
+
+        try {
+            // Création requête
+            creerRequete("PUT", url);
+            this.connection.setDoOutput(true);
+            this.connection.setRequestProperty("Accept", "application/json");
+
+            codeRetour = this.connection.getResponseCode();
+            logger.info("Code Retour HTTP: " + codeRetour);
+
+            if(codeRetour == HttpURLConnection.HTTP_OK) {
+
+                // Récupération du JSON
+                byte[] out = contenu.toString().getBytes(StandardCharsets.UTF_8);
+
+                // Récupération du flux et écriture
+                OutputStream os = this.connection.getOutputStream();
+                os.write(out);
+
+                // Récupération de la réponse de l'API
+                codeRetour = this.connection.getResponseCode();
+                if(codeRetour == HttpURLConnection.HTTP_CREATED) {
+                    logger.info("PUT Effectué: " + codeRetour);
+                } else {
+                    logger.info("ERREUR Put : " + codeRetour);
+                }
+            } else {
+                logger.info("ERREUR Code Retour HTTP: " + codeRetour);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return codeRetour;
     }
 
-    public void updateDonnees(JSON message) {
-        this.connection.setDoOutput(true);
-    }
-    public void deleteDonnees(JSON message) {
-        this.connection.setDoOutput(true);
-    }
 
-
+    public int deleteDonnees(String url) {
+        // Création requête
+        creerRequete("DELETE", url);
+    }
 
     public String getUrlAPI()
     {
