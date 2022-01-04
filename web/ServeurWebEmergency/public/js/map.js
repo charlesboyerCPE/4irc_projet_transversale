@@ -10,9 +10,9 @@ function init(){
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-
+/*
     L.marker([45.764043,  4.835659]).addTo(map)
         .bindPopup('Lyon')
         .openPopup();
-    
+    */
 }

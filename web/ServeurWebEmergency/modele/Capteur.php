@@ -23,6 +23,31 @@
             //var_dump($resultat);
             return $resultat;
         }
+
+        function putAllCapteurs($data){
+
+            $data = json_decode($data, true);
+            foreach($data as $key => $val){
+                echo $data[$key]['id_capteur'];
+                $sql = "
+                    INSERT INTO Capteur (id_capteur, intensite, perimetre, coordonnee_x, coordonnee_y) 
+                    VALUES ({$data[$key]['id_capteur']}, {$data[$key]['intensite']}, {$data[$key]['perimetre']}, {$data[$key]['coordonnee_x']}, {$data[$key]['coordonnee_y']})
+                    ON DUPLICATE KEY UPDATE intensite= VALUES(intensite), perimetre= VALUES(perimetre), coordonnee_x=  VALUES(coordonnee_x), coordonnee_y=  VALUES(coordonnee_y)
+                ";
+                $query = $this->_connexion->prepare($sql);
+                $query->execute();
+            }
+
+        }
+
+        function putCapteurById($id){
+
+        }
+
+        /*
+        INSERT INTO Capteur (id_capteur, intensite, perimetre, coordonnee_x, coordonnee_y) VALUES (1, 5, 5, 5.0, 5.0)
+        ON DUPLICATE KEY UPDATE id_capteur = 1, intensite= 5, perimetre= 5, coordonnee_x= 5, coordonnee_y= 5
+        */
     }
 
     

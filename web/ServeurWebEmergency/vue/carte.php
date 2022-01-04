@@ -1,6 +1,5 @@
 <?php 
     include('template.php');
-    //echo 'carte'; 
 ?>
 
 
