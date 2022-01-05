@@ -37,6 +37,21 @@
             }
         }
 
+        function deleteCapteurById($id){
+            $sql = "DELETE FROM Capteur WHERE id_capteur = {$id}";
+            $query = $this->_connexion->prepare($sql);
+            $query->execute();
+        }
+
+        function deleteCapteurs($data){
+            $data = json_decode($data, true);
+            foreach($data as $key => $val){
+                $sql = " DELETE FROM Capteur WHERE id_capteur = {$data[$key]['id_capteur']} ";
+                $query = $this->_connexion->prepare($sql);
+                $query->execute();
+            }
+        }
+
     }
 
 ?>
