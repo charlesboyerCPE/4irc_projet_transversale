@@ -16,45 +16,71 @@ function init(){ document.write('ok')
 }
 
 
-function afficheMap(liste){
+function afficheMap(listeCapteurs, listeFeux, listeCamions, listePompiers){
 
-    liste.forEach(element => console.log(element.id_capteur));
-    //console.log(liste);
+    //listeCapteurs.forEach(element => console.log(element.id_capteur));
+    //console.log(listeCapteurs);
 
+    //Création de la map
     var map = L.map('map').setView([45.764043, 4.835659], 13);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-/*
-    var circle = L.circle([45.764043, 4.835659], {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
-        radius: 500
-    }).addTo(map);
-*/
-    for (var i = 0; i < liste.length; i++) {
-        console.log("liste" + liste[i].id_capteur);
+    //Création des icones
+    var capteurIcon = L.icon({
+        iconUrl: './public/img/capteur.png',
+       shadowUrl: '',
+    
+        iconSize:     [50, 50], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
 
-         L.circle([liste[i].coordonnee_x, liste[i].coordonnee_y], {
+    var feuIcon = L.icon({
+        iconUrl: './public/img/feu.png',
+       shadowUrl: '',
+    
+        iconSize:     [50, 50], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    //L.marker([45.764043, 4.835659], {icon: feuIcon}).bindPopup("Feu").addTo(map);
+/*
+    for (var i = 0; i < listeCapteurs.length; i++) {
+        L.marker([listeFeux[i].coordonnee_x, listeFeux[i].coordonnee_y], {icon: capteurIcon}).bindPopup("Capteur").addTo(map);
+    }
+*/
+    for (var i = 0; i < listeFeux.length; i++) {
+        L.marker([45.764043, 4.835659], {icon: feuIcon}).bindPopup("Feu").addTo(map);
+    }
+
+    //Capteurs sous forme de cercles
+    for (var i = 0; i < listeCapteurs.length; i++) {
+        //console.log("listeCapteurs" + listeCapteurs[i].id_capteur);
+         L.circle([45.764043, 4.835659], {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.5,
-            radius: 500
+            radius: 200//500
         }).addTo(map);
     }
-    
-}
-/*
+  /*  
 
-function afficheCapteur($capteur){
-    
-
-}
-liste.forEach(element => element.coordonnee_x), liste.forEach(element => element.coordonnee_y)
+    for (var i = 0; i < listeFeux.length; i++) {
+         L.circle([listeFeux[i].coordonnee_x, listeFeux[i].coordonnee_y], {
+            color: 'blue',
+            fillColor: 'blue',
+            fillOpacity: 0.5,
+            radius: 100
+        }).addTo(map);
+    }
 */
-
+    
+}
 
    

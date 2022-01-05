@@ -26,7 +26,9 @@
 
         function putAllCapteurs($data){
             $data = json_decode($data, true);
-            foreach($data as $key => $val){
+            //var_dump($data);
+            
+            foreach($data as $key => $val){                
                 $sql = "
                     INSERT INTO Capteur (id_capteur, intensite, perimetre, coordonnee_x, coordonnee_y) 
                     VALUES ({$data[$key]['id_capteur']}, {$data[$key]['intensite']}, {$data[$key]['perimetre']}, {$data[$key]['coordonnee_x']}, {$data[$key]['coordonnee_y']})
@@ -34,7 +36,9 @@
                 ";
                 $query = $this->_connexion->prepare($sql);
                 $query->execute();
+                 
             }
+           
         }
 
         function deleteCapteurById($id){
