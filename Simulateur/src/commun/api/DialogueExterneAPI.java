@@ -76,6 +76,7 @@ public class DialogueExterneAPI
                 }
 
                 // Parser la réponse
+                logger.info("Reponse: " + reponse);
                 json = new JSONArray(reponse.toString());
 
                 // Fermeture de la connexion
@@ -101,40 +102,32 @@ public class DialogueExterneAPI
             this.connection.setDoOutput(true);
             this.connection.setRequestProperty("Accept", "application/json");
 
-            codeRetour = 200;
-            logger.info("Code Retour HTTP: " + codeRetour);
-
-            if(codeRetour == HttpURLConnection.HTTP_OK) {
-
-                // Conversion du JSONArray en String
-                List<String> contenuToString = new ArrayList<String>();
-                for(int i=0; i < contenu.length(); i++) {
-                    contenuToString.add(contenu.get(i).toString());
-                }
-                String contenuString = contenuToString.toString();
-
-                // Conversion du String Array en byte[]
-                byte[] data = contenuString.getBytes(StandardCharsets.UTF_8);
-
-                // Récupération du flux et écriture à l'intérieur
-                OutputStream os = this.connection.getOutputStream();
-                os.write(data);
-
-                // Récupération de la réponse de l'API
-                codeRetour = this.connection.getResponseCode();
-                if(codeRetour == HttpURLConnection.HTTP_CREATED) {
-                    logger.info("MaJ des données effectuées: " + codeRetour + " " + this.connection.getResponseMessage());
-                } else {
-                    logger.info("ERREUR MaJ Données : " + codeRetour + " " + this.connection.getResponseMessage());
-                }
-
-                // Fermeture de la connexion
-                os.close();
-                logger.info("Connexion fermée");
-
-            } else {
-                logger.info("ERREUR Code Retour HTTP: " + codeRetour + " " + this.connection.getResponseMessage());
+            // Conversion du JSONArray en String
+            List<String> contenuToString = new ArrayList<String>();
+            for(int i=0; i < contenu.length(); i++) {
+                contenuToString.add(contenu.get(i).toString());
             }
+            String contenuString = contenuToString.toString();
+
+            // Conversion du String Array en byte[]
+            byte[] data = contenuString.getBytes(StandardCharsets.UTF_8);
+
+            // Récupération du flux et écriture à l'intérieur
+            OutputStream os = this.connection.getOutputStream();
+            os.write(data);
+
+            // Récupération de la réponse de l'API
+            codeRetour = this.connection.getResponseCode();
+            if(codeRetour == HttpURLConnection.HTTP_CREATED) {
+                logger.info("MaJ des données effectuées: " + codeRetour + " " + this.connection.getResponseMessage());
+            } else {
+                logger.info("ERREUR MaJ Données : " + codeRetour + " " + this.connection.getResponseMessage());
+            }
+
+            // Fermeture de la connexion
+            os.close();
+            logger.info("Connexion fermée");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,7 +154,6 @@ public class DialogueExterneAPI
 
         return codeRetour;
     }
-
 
     public String getUrlAPI()
     {

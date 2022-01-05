@@ -41,10 +41,10 @@ public class Capteur {
     }
 
     public Capteur(int id, boolean isAlive, int intensite, int perimetre, int x, int y) {
-        this.id = 0;
+        this.id = id;
         this.isAlive = true;
-        this.intensite = 0;
-        this.perimetre = 10;
+        this.intensite = intensite;
+        this.perimetre = perimetre;
         this.coord = new Coordonnees(x, y);
 
         this.logger = Logger.getLogger(String.valueOf(Capteur.class));
@@ -63,7 +63,7 @@ public class Capteur {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
 
-        json.put("id_capteurs", this.getId());
+        json.put("id_capteur", this.getId());
         json.put("perimetre", this.getPerimetre());
         json.put("coordonnee_x", this.getX());
         json.put("intensite", this.getIntensite());
@@ -73,6 +73,7 @@ public class Capteur {
 
         return json;
     }
+
 
     public boolean isAlive() {
         return isAlive;

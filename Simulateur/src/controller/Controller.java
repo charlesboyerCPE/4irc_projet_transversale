@@ -23,7 +23,6 @@ public class Controller {
 
     // Méthode permettant d'initialiser la simulation
     public void initialiserSimulation() {
-        capteurModel.obtenirListeCapteursBDD(GlobalProperties.API_SIMU);
-        capteurModel.supprimerCapteur(GlobalProperties.API_SIMU, 2);
+        capteurModel.creerCapteurs(GlobalProperties.API_SIMU, 10);
     }
 }

@@ -41,14 +41,6 @@ public class CapteurModel extends Model {
         }
     }
 
-    public void LAURINE(String url) {
-        DialogueExterneAPI api = new DialogueExterneAPI(url);
-        String test = "[{\"id_capteur\":\"4\",\"perimetre\":\"7\",\"coordonnee_x\":\"5\",\"intensite\":\"5\",\"coordonnee_y\":\"5\"}]";
-        JSONArray tabJson = new JSONArray(test);
-
-        api.setDonnees(url, tabJson);
-    }
-
     public void supprimerCapteur(String urlApi, int id) {
         int codeRetour = -1;
 
@@ -79,11 +71,14 @@ public class CapteurModel extends Model {
 
     // Méthode permettant de créer nbCapteur capteurs, de les ajouter à la liste de capteurs et de l'ajouter en BDD
     public void creerCapteurs(String urlApi, int nbCapteurs) {
+        int codeRetour = -1;
+        int i = 0;
         Random random = new Random();
         JSONArray jsonArray = new JSONArray();
 
-        for (int i = 0; i < nbCapteurs; i++) {
+        for (i = 0; i < nbCapteurs; i++) {
             // Ajout dans la liste
+            logger.info("i= " + i);
             Capteur capteur = new Capteur (
                     i,
                     true,
@@ -93,11 +88,18 @@ public class CapteurModel extends Model {
                     random.nextInt(9)
             );
             listeCapteurs.add(capteur);
-
-            // Envoi à la base de données
             jsonArray.put(capteur.toJson());
-            this.api = new DialogueExterneAPI(urlApi);
-            this.api.setDonnees("capteurs", jsonArray);
+            logger.info("Capteurs créer : \n" + capteur);
+        }
+
+        // Envoi à la base de données
+        logger.info("JSON complet : \n" + jsonArray);
+        this.api = new DialogueExterneAPI(urlApi);
+        codeRetour = this.api.setDonnees("capteurs", jsonArray);
+        if (codeRetour == 201) {
+            logger.info("Liste de capteurs inséré dans la base");
+        } else {
+            logger.info("Erreur lors de l'insertion dans la base");
         }
     }
 
