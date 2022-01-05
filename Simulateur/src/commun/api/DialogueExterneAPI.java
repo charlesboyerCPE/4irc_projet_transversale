@@ -2,6 +2,7 @@
 
 package commun.api;
 
+import commun.utils.GlobalProperties;
 import org.json.JSONArray;
 
 import java.io.*;
@@ -16,6 +17,7 @@ public class DialogueExterneAPI
 {
     private String urlAPI;
     private HttpURLConnection connection;
+    private GlobalProperties globalProperties;
 
     private final Logger logger;
 

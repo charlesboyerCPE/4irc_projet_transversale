@@ -8,19 +8,22 @@
 
 package controller;
 
-import model.Model;
+
+import commun.utils.GlobalProperties;
+import model.CapteurModel.CapteurModel;
 
 public class Controller {
-    private Model model;
+    private CapteurModel capteurModel;
 
     // Constructeur de la classe Controller
     public Controller() {
         super();
-        this.model = new Model();
+        this.capteurModel = new CapteurModel();
     }
 
     // Méthode permettant d'initialiser la simulation
     public void initialiserSimulation() {
-        model.initialiserCapteursBDD();
+        capteurModel.obtenirListeCapteursBDD(GlobalProperties.API_SIMU);
+        capteurModel.supprimerCapteur(GlobalProperties.API_SIMU, 2);
     }
 }
