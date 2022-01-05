@@ -27,6 +27,17 @@ function api_put_camions($data){
     $listeCamions = $camion->putAllCamions($data);
 }
 
+function api_delete_camion($id){
+    $camion = new Camion;
+    $listeCamion = $camion->deleteCamionById($id);
+    echo json_encode($listeCamion);
+}
+
+function api_delete_camions($data){
+    $camion = new Camion;
+    $listeCamions = $camion->deleteCamions($data);
+}
+
 //Capteur
 function api_get_capteur($id){
     $capteur = new Capteur;
@@ -45,6 +56,16 @@ function api_put_capteurs($data){
     $listeCapteurs = $capteur->putAllCapteurs($data);
 }
 
+function api_delete_capteur($id){
+    $capteur = new Capteur;
+    $listeCapteur = $capteur->deleteCapteurById($id);
+}
+
+function api_delete_capteurs($data){
+    $capteur = new Capteur;
+    $listeCapteurs = $capteur->deleteCapteurs($data);
+}
+
 //Caserne
 function api_get_caserne($id){
     $caserne = new Caserne;
@@ -61,6 +82,16 @@ function api_get_casernes(){
 function api_put_casernes($data){
     $caserne = new Caserne;
     $listeCasernes = $caserne->putAllCasernes($data);
+}
+
+function api_delete_caserne(){
+    $caserne = new Caserne;
+    $listeCaserne = $caserne->deleteCaserneById($id);
+}
+
+function api_delete_casernes($data){
+    $caserne = new Caserne;
+    $listeCasernes = $caserne->deleteCasernes($data);
 }
 
 //Constitution
@@ -94,6 +125,16 @@ function api_get_equipes(){
 function api_put_equipes($data){
     $equipe = new Equipe;
     $listeEquipes = $equipe->putAllEquipes($data);
+}
+
+function api_delete_equipe(){
+    $equipe = new Equipe;
+    $listeEquipes = $equipe->deleteEquipeById($id);
+}
+
+function api_delete_equipes($data){
+    $equipe = new Equipe;
+    $listeEquipes = $equipe->deleteEquipes($data);
 }
 
 //Feu
