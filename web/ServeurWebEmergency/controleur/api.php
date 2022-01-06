@@ -84,7 +84,7 @@ function api_put_casernes($data){
     $listeCasernes = $caserne->putAllCasernes($data);
 }
 
-function api_delete_caserne(){
+function api_delete_caserne($id){
     $caserne = new Caserne;
     $listeCaserne = $caserne->deleteCaserneById($id);
 }
@@ -127,7 +127,7 @@ function api_put_equipes($data){
     $listeEquipes = $equipe->putAllEquipes($data);
 }
 
-function api_delete_equipe(){
+function api_delete_equipe($id){
     $equipe = new Equipe;
     $listeEquipes = $equipe->deleteEquipeById($id);
 }
@@ -155,6 +155,16 @@ function api_put_feux($data){
     $listeFeux = $feu->putAllFeux($data);
 }
 
+function api_delete_feu($id){
+    $feu = new Feu;
+    $listeFeu = $feu->deleteFeuById($id);
+}
+
+function api_delete_feux($data){
+    $feu = new Feu;
+    $listeFeux = $feu->deleteFeux($data);
+}
+
 
 //Operation
 function api_get_operation($id){
@@ -172,6 +182,16 @@ function api_get_operations(){
 function api_put_operations($data){
     $operation = new Operation;
     $listeOperations = $operation->putAllOperations($data);
+}
+
+function api_delete_operation($id){
+    $operation = new Operation;
+    $listeOperation = $operation->deleteOperationById($id);
+}
+
+function api_delete_operations($data){
+    $operation = new Operation;
+    $listeOperations = $operation->deleteOperations($data);
 }
 
 //Pompier
@@ -192,5 +212,14 @@ function api_put_pompiers($data){
     $listePompiers = $pompier->putAllPompiers($data);
 }
 
+function api_delete_pompier($id){
+    $pompier = new Pompier;
+    $listePompier = $pompier->deletePompierById($id);
+}
+
+function api_delete_pompiers($data){
+    $pompier = new Pompier;
+    $listePompiers = $pompier->deletePompiers($data);
+}
 
 ?>
