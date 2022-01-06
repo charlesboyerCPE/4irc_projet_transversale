@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import java.util.logging.Logger;
 
 public class Capteur {
-    private int id;
+    private int id_capteur;
     private int perimetre;
     private int intensite;
     private boolean isAlive;
@@ -23,7 +23,7 @@ public class Capteur {
 
     public Capteur()
     {
-        this.id = 0;
+        this.id_capteur = 0;
         this.isAlive = true;
         this.intensite = 0;
         this.perimetre = 10;
@@ -32,7 +32,7 @@ public class Capteur {
     }
 
     public Capteur(int x, int y) {
-        this.id = 0;
+        this.id_capteur = 0;
         this.isAlive = true;
         this.intensite = 0;
         this.perimetre = 10;
@@ -40,8 +40,8 @@ public class Capteur {
         this.logger = Logger.getLogger(String.valueOf(Capteur.class));
     }
 
-    public Capteur(int id, boolean isAlive, int intensite, int perimetre, int x, int y) {
-        this.id = id;
+    public Capteur(int id_capteur, boolean isAlive, int intensite, int perimetre, int x, int y) {
+        this.id_capteur = id_capteur;
         this.isAlive = true;
         this.intensite = intensite;
         this.perimetre = perimetre;
@@ -51,7 +51,7 @@ public class Capteur {
     }
 
     public Capteur(JSONObject json) {
-        this.id = json.getInt("id_capteur");
+        this.id_capteur = json.getInt("id_capteur_capteur");
         this.isAlive = true;
         this.intensite = json.getInt("intensite");
         this.perimetre = json.getInt("perimetre");
@@ -63,7 +63,7 @@ public class Capteur {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
 
-        json.put("id_capteur", this.getId());
+        json.put("id_capteur", this.getIdCapteur());
         json.put("perimetre", this.getPerimetre());
         json.put("coordonnee_x", this.getX());
         json.put("intensite", this.getIntensite());
@@ -87,8 +87,8 @@ public class Capteur {
         return intensite;
     }
 
-    public int getId() {
-        return id;
+    public int getIdCapteur() {
+        return id_capteur;
     }
 
     public float getX() {
@@ -102,7 +102,7 @@ public class Capteur {
     @Override
     public String toString() {
         return "Capteur {\n" +
-                "\tid=" + id +
+                "\tid_capteur=" + id_capteur +
                 "\n\tisAlive=" + isAlive +
                 "\n\tperimetre=" + perimetre +
                 "\n\tintensite=" + intensite +

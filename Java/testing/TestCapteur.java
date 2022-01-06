@@ -16,7 +16,7 @@ public class TestCapteur
         Capteur capteur = new Capteur(0,true,5,10,2,3);
 
         // Test des champs
-        assertEquals(0, capteur.getId());
+        assertEquals(0, capteur.getIdCapteur());
         assertTrue(capteur.isAlive());
         assertEquals(5, capteur.getIntensite());
         assertEquals(10, capteur.getPerimetre());

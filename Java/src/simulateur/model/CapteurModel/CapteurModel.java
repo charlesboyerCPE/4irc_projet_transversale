@@ -27,7 +27,7 @@ public class CapteurModel extends Model {
 
         // Parcours de la liste de capteurs
         for (Capteur entree : listeCapteurs) {
-            if (entree.getId() == id) {
+            if (entree.getIdCapteur() == id) {
                 logger.info("Capteur n°" + id + " présent");
 
                 // Remplissage du JSON

@@ -34,7 +34,7 @@ public class FeuModel extends Model {
 
         // Envoi à l'API
         this.api = new DialogueExterneAPI(urlApi);
-        codeRetour = this.api.setDonnees("feu/" + feu.getIdFeu(), jsonArray);
+        codeRetour = this.api.setDonnees("feux/", jsonArray);
         if (codeRetour == 201) {
             logger.info("Feu inséré dans la base");
         } else {

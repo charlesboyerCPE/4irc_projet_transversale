@@ -66,7 +66,7 @@ public class Feu {
         JSONObject json = new JSONObject();
 
         json.put("id_feu", this.getIdFeu());
-        json.put("id_capteur", this.getCapteurs().get(this.id_feu).getId());
+        json.put("id_capteur", this.getCapteurs().get(0).getIdCapteur());
         json.put("intensite", this.getIntensite());
         json.put("frequence", this.getFrequence());
         json.put("coordonnee_x", this.getX());
@@ -79,9 +79,12 @@ public class Feu {
 
     @Override
     public String toString() {
-        return "Feu {\n" +
-                "\tintensite=" + intensite +
-                "\n\t, coord=" + coord +
-                "\n\t}";
+        return "\nFeu {" +
+                "\n\tid_feu=" + id_feu +
+                "\n\tfrequence=" + frequence +
+                "\n\tintensite=" + intensite +
+                "\n\tcoord=" + coord +
+                "\n\tcapteurs=" + capteurs +
+                "\n}";
     }
 }

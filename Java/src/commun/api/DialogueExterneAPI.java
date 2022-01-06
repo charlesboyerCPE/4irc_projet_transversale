@@ -1,4 +1,4 @@
-//TODO A TESTER PUT et en-tête Content-Length (nombre d'octet)
+//TODO en-tête Content-Length (nombre d'octet)
 
 package src.commun.api;
 
