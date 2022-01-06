@@ -8,7 +8,7 @@ $params = explode('/', htmlspecialchars(rtrim($_GET['action'],'/')));
 //if(!empty($params[0])) test();
 //$params[0]();
 
-$ess = '[{"id_capteur":"4","perimetre":"6","coordonnee_x":"5","intensite":"5","coordonnee_y":"5"}]';
+$ess = '[{"id_capteur":0,"perimetre":10,"coordonnee_x":1,"intensite":0,"coordonnee_y":6}, {"id_capteur":0,"perimetre":10,"coordonnee_x":7,"intensite":0,"coordonnee_y":4}, {"id_capteur":0,"perimetre":10,"coordonnee_x":3,"intensite":0,"coordonnee_y":0}]';
 
 //api_put_capteurs($ess);
 
