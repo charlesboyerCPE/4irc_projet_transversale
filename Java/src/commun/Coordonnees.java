@@ -1,4 +1,4 @@
-package commun;
+package src.commun;
 
 public class Coordonnees
 {

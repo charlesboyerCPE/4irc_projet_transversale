@@ -6,7 +6,7 @@
  * @author Charles BOYER - 4IRC ~ CPE Lyon
  */
 
-package commun;
+package src.commun;
 
 import org.json.JSONObject;
 

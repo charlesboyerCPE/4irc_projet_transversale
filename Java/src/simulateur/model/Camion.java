@@ -1,7 +1,7 @@
-package model;
+package src.simulateur.model;
 
-import commun.Coordonnees;
-import commun.Feu;
+import src.commun.Coordonnees;
+import src.commun.Feu;
 
 public class Camion {
     private Coordonnees coord;
