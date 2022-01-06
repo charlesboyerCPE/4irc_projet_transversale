@@ -6,9 +6,9 @@
  * @author Charles BOYER - 4IRC ~ CPE Lyon
  */
 
-package launcher;
+package src.simulateur.launcher;
 
-import controller.Controller;
+import src.simulateur.controller.Controller;
 
 public class Launcher {
 

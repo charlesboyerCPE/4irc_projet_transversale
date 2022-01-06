@@ -1,10 +1,10 @@
-package model.CapteurModel;
+package src.simulateur.model.CapteurModel;
 
-import commun.Capteur;
-import commun.api.DialogueExterneAPI;
-import model.Model;
+import src.commun.Capteur;
+import src.commun.api.DialogueExterneAPI;
+import src.simulateur.model.Model;
+
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,7 @@
 //TODO A TESTER PUT et en-tête Content-Length (nombre d'octet)
 
-package commun.api;
+package src.commun.api;
 
-import commun.utils.GlobalProperties;
 import org.json.JSONArray;
 
 import java.io.*;
@@ -17,7 +16,6 @@ public class DialogueExterneAPI
 {
     private String urlAPI;
     private HttpURLConnection connection;
-    private GlobalProperties globalProperties;
 
     private final Logger logger;
 
@@ -102,19 +100,9 @@ public class DialogueExterneAPI
             this.connection.setDoOutput(true);
             this.connection.setRequestProperty("Accept", "application/json");
 
-            // Conversion du JSONArray en String
-            List<String> contenuToString = new ArrayList<String>();
-            for(int i=0; i < contenu.length(); i++) {
-                contenuToString.add(contenu.get(i).toString());
-            }
-            String contenuString = contenuToString.toString();
-
-            // Conversion du String Array en byte[]
-            byte[] data = contenuString.getBytes(StandardCharsets.UTF_8);
-
             // Récupération du flux et écriture à l'intérieur
             OutputStream os = this.connection.getOutputStream();
-            os.write(data);
+            os.write(jsonToByteArray(contenu));
 
             // Récupération de la réponse de l'API
             codeRetour = this.connection.getResponseCode();
@@ -153,6 +141,19 @@ public class DialogueExterneAPI
         }
 
         return codeRetour;
+    }
+
+    private byte[] jsonToByteArray(JSONArray contenu) {
+
+        // Conversion du JSONArray en String
+        List<String> contenuToString = new ArrayList<>();
+        for(int i=0; i < contenu.length(); i++) {
+            contenuToString.add(contenu.get(i).toString());
+        }
+        String contenuString = contenuToString.toString();
+
+        // Conversion du String Array en byte[]
+        return contenuString.getBytes(StandardCharsets.UTF_8);
     }
 
     public String getUrlAPI()
