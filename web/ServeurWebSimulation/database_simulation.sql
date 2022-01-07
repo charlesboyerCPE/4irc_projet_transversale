@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 17 déc. 2021 à 15:07
+-- Généré le :  ven. 07 jan. 2022 à 10:52
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -25,28 +25,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `capteur`
---
-
-DROP TABLE IF EXISTS `capteur`;
-CREATE TABLE IF NOT EXISTS `capteur` (
-  `id_capteur` int(4) NOT NULL AUTO_INCREMENT,
-  `intensite` int(4) NOT NULL,
-  `perimetre` int(4) NOT NULL,
-  `coordonnee_x` float NOT NULL,
-  `coordonnee_y` float NOT NULL,
-  PRIMARY KEY (`id_capteur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `feu`
 --
 
 DROP TABLE IF EXISTS `feu`;
 CREATE TABLE IF NOT EXISTS `feu` (
-  `id_feu` int(4) NOT NULL AUTO_INCREMENT,
+  `id_feu` int(4) NOT NULL,
   `id_capteur` int(4) NOT NULL,
   `intensite` int(4) NOT NULL,
   `frequence` int(4) NOT NULL,
@@ -56,6 +40,23 @@ CREATE TABLE IF NOT EXISTS `feu` (
   KEY `id_capteur` (`id_capteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `capteur`
+--
+
+DROP TABLE IF EXISTS `capteur`;
+CREATE TABLE IF NOT EXISTS `capteur` (
+  `id_capteur` int(4) NOT NULL,
+  `intensite` int(4) NOT NULL,
+  `perimetre` int(4) NOT NULL,
+  `coordonnee_x` float NOT NULL,
+  `coordonnee_y` float NOT NULL,
+  PRIMARY KEY (`id_capteur`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 --
 -- Contraintes pour les tables déchargées
 --
@@ -64,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `feu` (
 -- Contraintes pour la table `feu`
 --
 ALTER TABLE `feu`
-  ADD CONSTRAINT `feu_ibfk_1` FOREIGN KEY (`id_capteur`) REFERENCES `capteur` (`id_capteur`);
+  ADD CONSTRAINT `feu_ibfk_1` FOREIGN KEY (`id_capteur`) REFERENCES `capteur` (`id_capteur`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
