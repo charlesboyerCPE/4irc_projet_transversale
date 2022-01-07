@@ -19,7 +19,7 @@ function api_get_camion($id){
     echo json_encode($listeCamion);
 }
 
-function api_put_camions($data){
+function api_put_camion($data){
     $camion = new Camion;
     $camion->putAllCamions($data);
 }
@@ -44,7 +44,7 @@ function api_get_capteur($id){
     echo json_encode($listeCapteur);
 }
 
-function api_put_capteurs($data){
+function api_put_capteur($data){
     $capteur = new Capteur;
     $capteur->putAllCapteurs($data);
 }
@@ -69,7 +69,7 @@ function api_get_caserne($id){
     echo json_encode($listeCaserne);
 }
 
-function api_put_casernes($data){
+function api_put_caserne($data){
     $caserne = new Caserne;
     $caserne->putAllCasernes($data);
 }
@@ -107,7 +107,7 @@ function api_get_equipe($id){
     echo json_encode($listeEquipe);
 }
 
-function api_put_equipes($data){
+function api_put_equipe($data){
     $equipe = new Equipe;
     $equipe->putAllEquipes($data);
 }
@@ -132,7 +132,7 @@ function api_get_feu($id){
     echo json_encode($listeFeu);
 }
 
-function api_put_feux($data){
+function api_put_feu($data){
     $feu = new Feu;
     $feu->putAllFeux($data);
 }
@@ -157,7 +157,7 @@ function api_get_operation($id){
     echo json_encode($listeOperation);
 }
 
-function api_put_operations($data){
+function api_put_operation($data){
     $operation = new Operation;
     $operation->putAllOperations($data);
 }
@@ -182,7 +182,7 @@ function api_get_pompier($id){
     echo json_encode($listePompier);
 }
 
-function api_put_pompiers($data){
+function api_put_pompier($data){
     $pompier = new Pompier;
     $pompier->putAllPompiers($data);
 }
