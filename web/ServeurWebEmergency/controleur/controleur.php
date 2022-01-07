@@ -11,11 +11,19 @@ function carte()
     $feux = new Feu;
     $liste_feux = $feux->getAllFeux();
 
+
     $camions = new Camion;
     $liste_camions = $camions->getAllCamions();
+    //var_dump($liste_camions);
+    /*
+    for(;;) {
+        $liste_camions = $camions->getAllCamions();
+        sleep(10);
+    }
+    */
 
-    $pompiers = new Pompier;
-    $liste_pompiers = $pompiers->getAllPompiers();
+    $caserne = new Caserne;
+    $liste_casernes = $caserne->getAllCasernes();
 
     require('vue/carte.php');
 }

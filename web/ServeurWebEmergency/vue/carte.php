@@ -1,10 +1,15 @@
 <?php 
     include('template.php');
 
+    $url=$_SERVER['REQUEST_URI'];
+    header("Refresh: 5; URL=$url");
+
+
     $liste_capteurs = json_encode($liste_capteurs, true);
     $liste_feux = json_encode($liste_feux, true);
     $liste_camions = json_encode($liste_camions, true);
     $liste_pompiers = json_encode($liste_pompiers, true);
+    $liste_casernes = json_encode($liste_casernes, true);
 ?>
 
 <legend>Légende de la carte :</legend>
@@ -12,6 +17,7 @@
     <img src="../public/img/capteur.png">Capteur
     <img src="../public/img/feu.png">Feu
     <img src="../public/img/camion.png">Camion
+    <img src="../public/img/caserne.png">Caserne
 </div>
 <div id="map"></div>
 <footer>
@@ -23,7 +29,9 @@
    crossorigin="">
 </script>
 <script type="text/javascript" src="../public/js/map.js"></script>
-<script>afficheMap(<?php echo $liste_capteurs ?>, <?php echo $liste_feux ?>, <?php echo $liste_camions ?>, <?php echo $liste_pompiers ?>)</script>
+<script>
+afficheMap(<?php echo $liste_capteurs ?>, <?php echo $liste_feux ?>, <?php echo $liste_camions ?>, <?php echo $liste_casernes ?>);
+</script>
 
 </body>
 </html>

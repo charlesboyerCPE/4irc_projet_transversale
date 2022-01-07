@@ -38,6 +38,17 @@
             }
         }
 
+        function putUpdateCamions($data){
+            $data = json_decode($data, true);
+            foreach($data as $key => $val){
+                $sql = "
+                UPDATE camion SET coordonnee_x = {$data[$key]['coordonnee_x']}, coordonnee_y = {$data[$key]['coordonnee_y']} WHERE id_camion = {$data[$key]['id_camion']};
+                ";
+                $query = $this->_connexion->prepare($sql);
+                $query->execute();
+            }
+        }
+
         function deleteCamionById($id){
             $sql = "DELETE FROM camion WHERE id_camion = {$id}";
             $query = $this->_connexion->prepare($sql);

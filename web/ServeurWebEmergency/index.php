@@ -46,6 +46,9 @@ if($params[0] == "api"){
                 if($params[1]=="camions"){
                     api_put_camion($chaine);
                     header("HTTP/1.1 201 CREATED");   
+                }elseif($params[1]=="updateCamions"){
+                    api_put_update_camion($chaine);
+                    header("HTTP/1.1 201 CREATED");   
                 }elseif($params[1]=="capteurs"){
                     api_put_capteur($chaine);
                     header("HTTP/1.1 201 CREATED");
