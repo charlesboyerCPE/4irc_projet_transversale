@@ -1,10 +1,10 @@
 package src.commun;
 
 import org.json.JSONObject;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class Feu {
 
@@ -24,7 +24,7 @@ public class Feu {
         this.intensite = 0;
         this.coord = new Coordonnees(0,0);
         this.capteurs = new ArrayList<Capteur>();
-        this.logger = Logger.getLogger(String.valueOf(Feu.class));
+        this.logger = Logger.getLogger(Feu.class);
     }
 
     public Feu(int id_feu, int frequence, int intensite, float x, float y, Capteur capteur)
@@ -60,6 +60,10 @@ public class Feu {
 
     public int getIntensite() {
         return this.intensite;
+    }
+
+    public void setIntensite(int intensite) {
+        this.intensite = intensite;
     }
 
     public JSONObject toJson() {

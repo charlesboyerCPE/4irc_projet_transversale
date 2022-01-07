@@ -9,8 +9,7 @@
 package src.commun;
 
 import org.json.JSONObject;
-
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 public class Capteur {
     private int id_capteur;
@@ -51,7 +50,7 @@ public class Capteur {
     }
 
     public Capteur(JSONObject json) {
-        this.id_capteur = json.getInt("id_capteur_capteur");
+        this.id_capteur = json.getInt("id_capteur");
         this.isAlive = true;
         this.intensite = json.getInt("intensite");
         this.perimetre = json.getInt("perimetre");
