@@ -2,7 +2,7 @@ package testing;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import src.commun.Capteur;
+import src.commun.Feu;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

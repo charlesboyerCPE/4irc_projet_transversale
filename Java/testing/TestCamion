@@ -1,0 +1,44 @@
+package testing;
+
+import org.json.JSONObject;
+import org.junit.jupiter.api.Test;
+import src.commun.Camion;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class TestCamion
+{
+    @Test
+    void Instanciation() {
+        System.out.println("Test Instanciation");
+
+        Camion camion = new Camion("",0,0,null);
+
+        // Test des champs
+        assertEquals("", camion.get_type());
+        assertEquals(0, camion.getX());
+        assertEquals(0, camion.getY());
+        assertEquals(null, camion.attribuerFeu());
+
+        System.out.println("Instanciation : Test réussi");
+    }
+
+    @Test
+    void CamionToJSON() {
+        System.out.println("Test CamionToJSON");
+
+        // Création des objets
+        Camion camion = new Camion("",0,0,null);
+        JSONObject json = new JSONObject();
+
+        json.put("type", "");
+        json.put("coordonnee_x", 0);
+        json.put("coordonnee_y", 0);
+        json.put("feu", null);
+
+        assertEquals(json.toString(), camion.toJson().toString());
+
+        System.out.println("CapteurToJSON : Test réussi");
+    }
+}

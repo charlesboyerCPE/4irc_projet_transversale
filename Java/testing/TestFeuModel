@@ -1,0 +1,38 @@
+package testing;
+
+import org.json.JSONObject;
+import org.junit.jupiter.api.Test;
+import src.commun.FeuModel;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class TestFeuModel
+{
+    @Test
+    void Instanciation() {
+        System.out.println("Test Instanciation");
+
+        FeuModel FeuModel = new FeuModel(List<0>);
+
+        // Test des champs
+        assertEquals(List<>, FeuModel.getListeFeux());
+
+        System.out.println("Instanciation : Test réussi");
+    }
+
+    @Test
+    void FeuModelToJSON() {
+        System.out.println("Test FeuModelToJSON");
+
+        // Création des objets
+        FeuModel FeuModel = new FeuModel(List<0>);
+        JSONObject json = new JSONObject();
+
+        json.put("Liste_capteurs", List<>);
+
+        assertEquals(json.toString(), FeuModel.toJson().toString());
+
+        System.out.println("FeuModelToJSON : Test réussi");
+    }
+}
