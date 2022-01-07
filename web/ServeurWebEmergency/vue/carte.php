@@ -7,7 +7,12 @@
     $liste_pompiers = json_encode($liste_pompiers, true);
 ?>
 
-<h2>Carte</h2>
+<legend>Légende de la carte :</legend>
+<div class="icones">
+    <img src="../public/img/capteur.png">Capteur
+    <img src="../public/img/feu.png">Feu
+    <img src="../public/img/camion.png">Camion
+</div>
 <div id="map"></div>
 <footer>
 </footer>

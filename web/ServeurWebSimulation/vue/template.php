@@ -9,8 +9,8 @@
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
   <!-- <link rel="stylesheet"  href="../vue/css/bootstrap.css"> -->
-  <link rel="icon" type="image/png" href="../public/img/logoEmercency.png" />
-  <title>Emergency</title>
+  <link rel="icon" type="image/png" href="../public/img/logoSimulation.png" />
+  <title>Simulation</title>
 </head>
 
 <body>

@@ -61,7 +61,7 @@ function afficheMap(listeCapteurs, listeFeux, listeCamions, listePompiers){
     }
 
     for (var i = 0; i < listeCapteurs.length; i++) {
-        L.marker([listeCapteurs[i].coordonnee_x, listeCapteurs[i].coordonnee_y], {icon: capteurIcon}).bindPopup("Capteur : " +listeCapteurs[i].id_capteur).addTo(map);
+        L.marker([listeCapteurs[i].coordonnee_x, listeCapteurs[i].coordonnee_y], {icon: capteurIcon}).bindPopup("Capteur : " + listeCapteurs[i].id_capteur).addTo(map);
         //perimetre capteur
         L.circle([listeCapteurs[i].coordonnee_x, listeCapteurs[i].coordonnee_y], {
             color: 'blue',

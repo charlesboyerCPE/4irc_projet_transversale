@@ -8,7 +8,7 @@
         }
 
         function getAllEquipes(){
-            $sql = "SELECT * FROM Equipe";
+            $sql = "SELECT * FROM equipe";
             $query = $this->_connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll(PDO::FETCH_CLASS);
@@ -17,7 +17,7 @@
         }
 
         function getEquipeById($id){
-            $sql = " SELECT * FROM Equipe WHERE id_equipe = $id "; 
+            $sql = " SELECT * FROM equipe WHERE id_equipe = $id "; 
             $query = $this->_connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll(PDO::FETCH_CLASS);
@@ -29,7 +29,7 @@
             $data = json_decode($data, true);
             foreach($data as $key => $val){
                 $sql = "
-                    INSERT INTO Equipe (id_equipe, date_constitution) 
+                    INSERT INTO equipe (id_equipe, date_constitution) 
                     VALUES ({$data[$key]['id_equipe']}, {$data[$key]['date_constitution']})
                     ON DUPLICATE KEY UPDATE date_constitution= VALUES(date_constitution)
                 ";
@@ -39,7 +39,7 @@
         }
 
         function deleteEquipeById($id){
-            $sql = "DELETE FROM Equipe WHERE id_equipe = {$id}";
+            $sql = "DELETE FROM equipe WHERE id_equipe = {$id}";
             $query = $this->_connexion->prepare($sql);
             $query->execute();
         }
@@ -47,7 +47,7 @@
         function deleteEquipes($data){
             $data = json_decode($data, true);
             foreach($data as $key => $val){
-                $sql = " DELETE FROM Equipe WHERE id_equipe = {$data[$key]['id_equipe']} ";
+                $sql = " DELETE FROM equipe WHERE id_equipe = {$data[$key]['id_equipe']} ";
                 $query = $this->_connexion->prepare($sql);
                 $query->execute();
             }

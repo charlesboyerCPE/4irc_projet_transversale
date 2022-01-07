@@ -8,7 +8,7 @@
         }
 
         function getAllFeux(){
-            $sql = "SELECT * FROM Feu";
+            $sql = "SELECT * FROM feu";
             $query = $this->_connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll(PDO::FETCH_CLASS);
@@ -17,7 +17,7 @@
         }
 
         function getFeuById($id){
-            $sql = " SELECT * FROM Feu WHERE id_feu = $id "; 
+            $sql = " SELECT * FROM feu WHERE id_feu = $id "; 
             $query = $this->_connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll(PDO::FETCH_CLASS);
@@ -29,7 +29,7 @@
             $data = json_decode($data, true);
             foreach($data as $key => $val){
                 $sql = "
-                    INSERT INTO Feu (id_feu, id_capteur, intensite, frequence, coordonnee_x, coordonnee_y) 
+                    INSERT INTO feu (id_feu, id_capteur, intensite, frequence, coordonnee_x, coordonnee_y) 
                     VALUES ({$data[$key]['id_feu']}, {$data[$key]['id_capteur']}, {$data[$key]['intensite']}, {$data[$key]['frequence']}, {$data[$key]['coordonnee_x']}, {$data[$key]['coordonnee_y']})
                     ON DUPLICATE KEY UPDATE intensite= VALUES(intensite), frequence= VALUES(frequence), coordonnee_x=  VALUES(coordonnee_x), coordonnee_y=  VALUES(coordonnee_y)
                 ";
@@ -39,7 +39,7 @@
         }
 
         function deleteFeuById($id){
-            $sql = "DELETE FROM Feu WHERE id_feu = {$id}";
+            $sql = "DELETE FROM feu WHERE id_feu = {$id}";
             $query = $this->_connexion->prepare($sql);
             $query->execute();
         }
@@ -47,12 +47,11 @@
         function deleteFeux($data){
             $data = json_decode($data, true);
             foreach($data as $key => $val){
-                $sql = " DELETE FROM Feu WHERE id_feu = {$data[$key]['id_feu']} ";
+                $sql = " DELETE FROM feu WHERE id_feu = {$data[$key]['id_feu']} ";
                 $query = $this->_connexion->prepare($sql);
                 $query->execute();
             }
         }
-
     }
 
 ?>
