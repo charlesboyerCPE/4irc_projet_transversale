@@ -73,7 +73,6 @@ public class Capteur {
         return json;
     }
 
-
     public boolean isAlive() {
         return isAlive;
     }

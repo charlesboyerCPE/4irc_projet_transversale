@@ -3,6 +3,7 @@ package src.simulateur.model.FeuModel;
 import src.commun.Capteur;
 import src.commun.Feu;
 import src.commun.api.DialogueExterneAPI;
+import src.simulateur.model.Camion;
 import src.simulateur.model.Model;
 
 import org.json.JSONArray;
