@@ -42,68 +42,38 @@ if($params[0] == "api"){
 
         case 'PUT':
             $chaine = recupJson();
-            if($params[1]=="camions"){
-                if(!isset($params[2])){
+            if(!isset($params[2])){
+                if($params[1]=="camions"){
                     api_put_camion($chaine);
                     header("HTTP/1.1 201 CREATED");   
-                }else{
-                    header("HTTP/1.1 404 NOT FOUND");
-                    break;
-                }
-            }
-            if($params[1]=="capteurs"){error_log("capteurs ");
-                if(!isset($params[2])){ error_log("capteur " .$chaine);
+                }elseif($params[1]=="updateCamions"){
+                    api_put_update_camion($chaine);
+                    header("HTTP/1.1 201 CREATED");   
+                }elseif($params[1]=="capteurs"){
                     api_put_capteur($chaine);
                     header("HTTP/1.1 201 CREATED");
-                }else{error_log("erreur ");
-                    header("HTTP/1.1 404 NOT FOUND");
-                    break;
-                }
-            }
-            if($params[1]=="casernes"){
-                if(!isset($params[2])){
+                }elseif($params[1]=="casernes"){
                     api_put_caserne($chaine);
                     header("HTTP/1.1 201 CREATED");
-                }else{
-                    header("HTTP/1.1 404 NOT FOUND");
-                    break;
-                }
-            }
-            if($params[1]=="equipes"){
-                if(!isset($params[2])){
+                }elseif($params[1]=="equipes"){
                     api_put_equipe($chaine);
                     header("HTTP/1.1 201 CREATED");
-                }else{
-                    header("HTTP/1.1 404 NOT FOUND");
-                    break;
-                }
-            }
-            if($params[1]=="feux"){
-                if(!isset($params[2])){
+                }elseif($params[1]=="feux"){
                     api_put_feu($chaine);
                     header("HTTP/1.1 201 CREATED");
-                }else{
-                    header("HTTP/1.1 404 NOT FOUND");
-                    break;
-                }
-            }
-            if($params[1]=="operations"){
-                if(!isset($params[2])){
+                }elseif($params[1]=="operations"){
                     api_put_operation($chaine);
                     header("HTTP/1.1 201 CREATED");
-                }else{
-                    header("HTTP/1.1 404 NOT FOUND");
-                    break;
-                }
-            }
-            if($params[1]=="pompiers"){
-                if(!isset($params[2])){
+                }elseif($params[1]=="pompiers"){
                     api_put_pompier($chaine);
                     header("HTTP/1.1 201 CREATED");
                 }else{
                     header("HTTP/1.1 404 NOT FOUND");
                     break;
                 }
+            }else{
+                header("HTTP/1.1 404 NOT FOUND");
+                break;
             }
             break;
                 

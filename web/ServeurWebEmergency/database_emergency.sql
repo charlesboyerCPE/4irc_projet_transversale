@@ -36,8 +36,6 @@ CREATE TABLE IF NOT EXISTS `operation` (
   `id_equipe` int(4) NOT NULL,
   `debut` timestamp NOT NULL,
   `fin` timestamp NOT NULL,
-  `coordonnee_x` float NOT NULL,
-  `coordonnee_y` float NOT NULL,
   PRIMARY KEY (`id_feu`,`id_camion`),
   KEY `id_camion` (`id_camion`),
   KEY `id_equipe` (`id_equipe`)
@@ -108,6 +106,10 @@ CREATE TABLE IF NOT EXISTS `camion` (
   `disponibilite` tinyint(1) NOT NULL,
   `capacite` int(4) NOT NULL,
   `nb_pompier` float NOT NULL,
+  `coordonnee_x` float NOT NULL,
+  `coordonnee_y` float NOT NULL,
+  `coordonnee_dest_x` float NOT NULL,
+  `coordonnee_dest_y` float NOT NULL,
   PRIMARY KEY (`id_camion`),
   KEY `id_caserne` (`id_caserne`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

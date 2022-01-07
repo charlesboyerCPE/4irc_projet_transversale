@@ -32,23 +32,20 @@ if($params[0] == "api"){
 
         case 'PUT':
             $chaine = recupJson();
-            if($params[1]=="capteurs"){
-                if(!isset($params[2])){
+            if(!isset($params[2])){
+                if($params[1]=="capteurs"){
                     api_put_capteur($chaine);
                     header("HTTP/1.1 201 CREATED");
-                }else{
-                    header("HTTP/1.1 404 NOT FOUND");
-                    break;
-                }
-            }
-            if($params[1]=="feux"){
-                if(!isset($params[2])){
+                }elseif($params[1]=="feux"){
                     api_put_feu($chaine);
                     header("HTTP/1.1 201 CREATED");
                 }else{
                     header("HTTP/1.1 404 NOT FOUND");
                     break;
                 }
+            }else{
+                header("HTTP/1.1 404 NOT FOUND");
+                break;
             }
             break;
                 

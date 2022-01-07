@@ -1,5 +1,5 @@
 
-function afficheMap(listeCapteurs, listeFeux, listeCamions, listePompiers){
+function afficheMap(listeCapteurs, listeFeux, listeCamions, listeCasernes){
 
     //Création de la map
     var map = L.map('map').setView([45.764043, 4.835659], 13);
@@ -46,8 +46,8 @@ function afficheMap(listeCapteurs, listeFeux, listeCamions, listePompiers){
         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
 
-    var pompierIcon = L.icon({
-        iconUrl: './public/img/pompier.png',
+    var caserneIcon = L.icon({
+        iconUrl: './public/img/caserne.png',
         shadowUrl: '',
         iconSize:     [30, 30], // size of the icon
         shadowSize:   [50, 64], // size of the shadow
@@ -57,11 +57,19 @@ function afficheMap(listeCapteurs, listeFeux, listeCamions, listePompiers){
     });
 
     for (var i = 0; i < listeCamions.length; i++) {
-        L.marker([listeCamions[i].coordonnee_x, listeCamions[i].coordonnee_y], {icon: camionIcon}).bindPopup("Camion : " + listeCamions[i].id_camion).addTo(map);
+        L.marker([listeCamions[i].coordonnee_x, listeCamions[i].coordonnee_y], {icon: camionIcon})
+            .bindPopup("Camion : " + listeCamions[i].id_camion + "<br>Caserne : " + listeCamions[i].id_caserne + 
+                        "<br>Type de produit  : " + listeCamions[i].type_produit + "<br>Capacité : " + listeCamions[i].capacite + 
+                        "<br>Nb pompier : " + listeCamions[i].nb_pompier + "<br>Coordonnée : " + "("+listeCamions[i].coordonnee_x +" ; " + listeCamions[i].coordonnee_y + ")" +
+                        "<br>Destination : " + "("+listeCamions[i].coordonnee_dest_x +" ; " + listeCamions[i].coordonnee_dest_y + ")")
+            .addTo(map);
     }
 
     for (var i = 0; i < listeCapteurs.length; i++) {
-        L.marker([listeCapteurs[i].coordonnee_x, listeCapteurs[i].coordonnee_y], {icon: capteurIcon}).bindPopup("Capteur : " + listeCapteurs[i].id_capteur).addTo(map);
+        L.marker([listeCapteurs[i].coordonnee_x, listeCapteurs[i].coordonnee_y], {icon: capteurIcon})
+            .bindPopup("Capteur : " + listeCapteurs[i].id_capteur + "<br>Intensité : " + listeCapteurs[i].intensite +
+                         "<br>Périmètre : " + listeCapteurs[i].perimetre + "<br>Coordonnée : " +  "("+listeCapteurs[i].coordonnee_x +" ; " + listeCapteurs[i].coordonnee_y + ")")
+            .addTo(map);
         //perimetre capteur
         L.circle([listeCapteurs[i].coordonnee_x, listeCapteurs[i].coordonnee_y], {
             color: 'blue',
@@ -72,8 +80,16 @@ function afficheMap(listeCapteurs, listeFeux, listeCamions, listePompiers){
     }
 
     for (var i = 0; i < listeFeux.length; i++) {
-        L.marker([listeFeux[i].coordonnee_x, listeFeux[i].coordonnee_y], {icon: feuIcon}).bindPopup("Feu : " + listeFeux[i].id_feu).addTo(map);
+        L.marker([listeFeux[i].coordonnee_x, listeFeux[i].coordonnee_y], {icon: feuIcon})
+            .bindPopup("Feu : " + listeFeux[i].id_feu + "<br>Capteur : " + listeFeux[i].id_capteur + "<br>Intensité : " + listeFeux[i].intensite + "<br>Fréquence : " + listeFeux[i].frequence +
+                         "<br>Coordonnée : " +  "("+listeFeux[i].coordonnee_x +" ; " + listeFeux[i].coordonnee_y + ")")
+            .addTo(map);
+    }
+
+    for (var i = 0; i < listeCasernes.length; i++) {
+        L.marker([listeCasernes[i].coordonnee_x, listeCasernes[i].coordonnee_y], {icon: caserneIcon})
+            .bindPopup("Caserne : " + listeCasernes[i].id_caserne + "<br>Total des pompiers : " + listeCasernes[i].total_pompier + 
+                         "<br>Coordonnée : " +  "("+listeCasernes[i].coordonnee_x +" ; " + listeCasernes[i].coordonnee_y + ")")
+            .addTo(map);
     }
 }
-
-   
