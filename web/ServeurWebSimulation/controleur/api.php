@@ -13,7 +13,7 @@ function api_get_capteur($id){
     echo json_encode($listeCapteur);
 }
 
-function api_put_capteurs($data){
+function api_put_capteur($data){
     $capteur = new Capteur;
     $capteur->putAllCapteurs($data);
 }
@@ -38,7 +38,7 @@ function api_get_feu($id){
     echo json_encode($listeFeu);
 }
 
-function api_put_feux($data){
+function api_put_feu($data){
     $feu = new Feu;
     $feu->putAllFeux($data);
 }
