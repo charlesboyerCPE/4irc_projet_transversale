@@ -5,11 +5,11 @@ import src.commun.api.DialogueExterneAPI;
 import src.simulateur.model.Model;
 
 import org.json.JSONArray;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
 
 public class CapteurModel extends Model {
 
@@ -73,6 +73,7 @@ public class CapteurModel extends Model {
     public void creerCapteurs(String urlApi, int nbCapteurs) {
         int codeRetour = -1;
         int i = 0;
+
         Random random = new Random();
         JSONArray jsonArray = new JSONArray();
 

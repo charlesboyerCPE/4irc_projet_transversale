@@ -3,6 +3,7 @@
 package src.commun.api;
 
 import org.json.JSONArray;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -10,7 +11,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class DialogueExterneAPI
 {
@@ -22,7 +22,7 @@ public class DialogueExterneAPI
     public DialogueExterneAPI() {
         this.urlAPI = "";
         this.connection = null;
-        logger = Logger.getLogger(String.valueOf(DialogueExterneAPI.class));
+        logger = Logger.getLogger(DialogueExterneAPI.class);
     }
 
     public DialogueExterneAPI(String urlAPI)
@@ -82,7 +82,7 @@ public class DialogueExterneAPI
                 logger.info("Connexion fermée");
 
             } else {
-                logger.info("ERREUR Code Retour HTTP: " + codeRetour + " " + this.connection.getResponseMessage());
+                logger.error("Aucune données reçu:  " + codeRetour + " " + this.connection.getResponseMessage());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,7 +109,7 @@ public class DialogueExterneAPI
             if(codeRetour == HttpURLConnection.HTTP_CREATED) {
                 logger.info("MaJ des données effectuées: " + codeRetour + " " + this.connection.getResponseMessage());
             } else {
-                logger.info("ERREUR MaJ Données : " + codeRetour + " " + this.connection.getResponseMessage());
+                logger.error("MaJ Données : " + codeRetour + " " + this.connection.getResponseMessage());
             }
 
             // Fermeture de la connexion
