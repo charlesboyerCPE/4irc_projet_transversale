@@ -65,6 +65,8 @@ if($params[0] == "api"){
             }
             break;
     }exit();
+}elseif($action=="getApiFeu"){
+    //
 }else{
     carte(); 
 }

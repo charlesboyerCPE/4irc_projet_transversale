@@ -9,3 +9,21 @@ img {
     height: 600px; 
     margin: 10px;
 }
+
+#corps{
+    padding-top: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.form-group{
+    padding: 10px;
+}
+
+.icones{
+    padding-top: 50px;
+}
+
+#envoyer{
+    float: right;
+}

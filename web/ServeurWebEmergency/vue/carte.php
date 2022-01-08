@@ -2,14 +2,16 @@
     include('template.php');
 ?>
 
-<legend>Légende de la carte :</legend>
-<div class="icones">
-    <img src="../public/img/capteur.png">Capteur
-    <img src="../public/img/feu.png">Feu
-    <img src="../public/img/camion.png">Camion
-    <img src="../public/img/caserne.png">Caserne
+<div id="corps">
+    <legend>Légende de la carte :</legend>
+    <div class="icones">
+        <img src="../public/img/capteur.png">Capteur
+        <img src="../public/img/feu.png">Feu
+        <img src="../public/img/camion.png">Camion
+        <img src="../public/img/caserne.png">Caserne
+    </div>
+    <div id="map"></div>
 </div>
-<div id="map"></div>
 <footer>
 </footer>
 
