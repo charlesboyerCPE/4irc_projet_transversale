@@ -1,10 +1,6 @@
 <?php 
     include('template.php');
 
-    $url=$_SERVER['REQUEST_URI'];
-    header("Refresh: 5; URL=$url");
-
-
     $liste_capteurs = json_encode($liste_capteurs, true);
     $liste_feux = json_encode($liste_feux, true);
     $liste_camions = json_encode($liste_camions, true);
@@ -23,16 +19,23 @@
 <footer>
 </footer>
 
-
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin="">
 </script>
 <script type="text/javascript" src="../public/js/map.js"></script>
 <script>
-afficheMap(<?php echo $liste_capteurs ?>, <?php echo $liste_feux ?>, <?php echo $liste_camions ?>, <?php echo $liste_casernes ?>);
-</script>
+   
+   var map = L.map('map').setView([45.764043, 4.835659], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
+    setInterval(() => {
+        afficheMap(map, <?php echo $liste_capteurs ?>, <?php echo $liste_feux ?>, <?php echo $liste_camions ?>, <?php echo $liste_casernes ?>);
+    }, 5000);
+
+</script>
 </body>
 </html>
 

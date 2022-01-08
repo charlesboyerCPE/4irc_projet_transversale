@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `camion` (
   `type_produit` varchar(20) NOT NULL,
   `disponibilite` tinyint(1) NOT NULL,
   `capacite` int(4) NOT NULL,
-  `nb_pompier` float NOT NULL,
+  `nb_pompier` int(4) NOT NULL,
   `coordonnee_x` float NOT NULL,
   `coordonnee_y` float NOT NULL,
   `coordonnee_dest_x` float NOT NULL,

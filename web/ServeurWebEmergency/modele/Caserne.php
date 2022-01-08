@@ -8,7 +8,11 @@
         }
 
         function getAllCasernes(){
-            $sql = "SELECT * FROM caserne";
+            $sql = "SELECT c.*, GROUP_CONCAT(p.id_pompier SEPARATOR ',') as pompier 
+                    FROM caserne c 
+                    LEFT JOIN pompier p ON p.id_caserne = c.id_caserne 
+                    GROUP BY c.id_caserne
+                    ";
             $query = $this->_connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll(PDO::FETCH_CLASS);
@@ -16,7 +20,10 @@
         }
 
         function getCaserneById($id){
-            $sql = " SELECT * FROM caserne WHERE id_caserne = $id "; 
+            $sql = "SELECT c.*, GROUP_CONCAT(p.id_pompier SEPARATOR ',') as pompier FROM caserne c 
+                    LEFT JOIN pompier p ON p.id_caserne = c.id_caserne
+                    WHERE c.id_caserne = $id
+                    "; 
             $query = $this->_connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll(PDO::FETCH_CLASS);
