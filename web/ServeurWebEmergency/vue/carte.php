@@ -1,11 +1,5 @@
 <?php 
     include('template.php');
-
-    $liste_capteurs = json_encode($liste_capteurs, true);
-    $liste_feux = json_encode($liste_feux, true);
-    $liste_camions = json_encode($liste_camions, true);
-    $liste_pompiers = json_encode($liste_pompiers, true);
-    $liste_casernes = json_encode($liste_casernes, true);
 ?>
 
 <legend>Légende de la carte :</legend>
@@ -25,16 +19,14 @@
 </script>
 <script type="text/javascript" src="../public/js/map.js"></script>
 <script>
-   
    var map = L.map('map').setView([45.764043, 4.835659], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     setInterval(() => {
-        afficheMap(map, <?php echo $liste_capteurs ?>, <?php echo $liste_feux ?>, <?php echo $liste_camions ?>, <?php echo $liste_casernes ?>);
+        afficheMap(map);
     }, 5000);
-
 </script>
 </body>
 </html>
