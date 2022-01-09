@@ -29,6 +29,12 @@ function api_put_update_camion($data){
     $camion->putUpdateCamions($data);
 }
 
+function api_put_update_camion_dest($data){
+    $camion = new Camion;
+    $camion->putUpdateCamionsDest($data);
+}
+
+
 function api_delete_camion($id, $data){
     $camion = new Camion;
     if(isset($id)){
@@ -76,7 +82,7 @@ function api_get_caserne($id){
 
 function api_put_caserne($data){
     $caserne = new Caserne;
-    $caserne->putAllCasernes($data);
+    $result = $caserne->putAllCasernes($data);
 }
 
 function api_delete_caserne($id, $data){

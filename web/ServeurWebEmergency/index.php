@@ -3,8 +3,15 @@ require('./controleur/controleur.php');
 require('./controleur/api.php');
 
 error_reporting(E_ALL ^ E_NOTICE);
+//$_GET['action'] = 'api/casernes';
 $params = explode('/', htmlspecialchars(rtrim($_GET['action'],'/')));
 
+//$ess= '[{"nom_caserne":"CPE Lyon","id_caserne":20,"total_pompier":0,"coordonnee_x":45.7,"coordonnee_y":4.8},{"nom_caserne":"CPE Lyon","id_caserne":21,"total_pompier":0,"coordonnee_x":45.7,"coordonnee_y":4.8}]';
+//$ess = '[{"id_camion":"1","id_caserne":"0","type_produit":"test","disponibilite":"0","capacite":"10","nb_pompier":"9","coordonnee_x":"45.74","coordonnee_y":"4.83","coordonnee_dest_x":"45.7719","coordonnee_dest_y":"4.83566"}]';
+$ess ='[{"id_capteur":"20","intensite":"0","perimetre":"10","coordonnee_x":"6","coordonnee_y":"0"},{"id_capteur":"1","intensite":"0","perimetre":"10","coordonnee_x":"8","coordonnee_y":"5"},{"id_capteur":"2","intensite":"0","perimetre":"10","coordonnee_x":"4","coordonnee_y":"1"},{"id_capteur":"3","intensite":"0","perimetre":"10","coordonnee_x":"7","coordonnee_y":"1"},{"id_capteur":"4","intensite":"0","perimetre":"10","coordonnee_x":"0","coordonnee_y":"2"},{"id_capteur":"10","intensite":"3","perimetre":"3","coordonnee_x":"45.764","coordonnee_y":"4.83566"}]';
+//api_put_caserne($ess);
+//api_put_update_camion($ess);
+//api_put_capteur($ess);
 function recupJson(){
     $chaine ='';
     $putdata = fopen("php://input", "r");
@@ -18,7 +25,9 @@ function recupJson(){
 if($params[0] == "api"){
     $chaine ="";
     $request_method = $_SERVER["REQUEST_METHOD"];
+    //$request_method = 'PUT';
     switch($request_method){
+        
         case 'GET':
             if($params[1]=="camion" || $params[1]=="camions"){
                 api_get_camion($params[2]);
@@ -41,13 +50,17 @@ if($params[0] == "api"){
             break;
 
         case 'PUT':
-            $chaine = recupJson();
+            $chaine = recupJson(); 
+            //$chaine = $ess;      
             if(!isset($params[2])){
                 if($params[1]=="camions"){
                     api_put_camion($chaine);
                     header("HTTP/1.1 201 CREATED");   
                 }elseif($params[1]=="updateCamions"){
                     api_put_update_camion($chaine);
+                    header("HTTP/1.1 201 CREATED");   
+                }elseif($params[1]=="updateCamionsDest"){
+                    api_put_update_camion_dest($chaine);
                     header("HTTP/1.1 201 CREATED");   
                 }elseif($params[1]=="capteurs"){
                     api_put_capteur($chaine);
@@ -76,7 +89,7 @@ if($params[0] == "api"){
                 break;
             }
             break;
-                
+              
         case 'DELETE' :
             if(!isset($params[2])){
                 $chaine = recupJson();
@@ -107,6 +120,7 @@ if($params[0] == "api"){
                 break;
             }
             break;
+            
     }exit();
 }else{
     carte(); 

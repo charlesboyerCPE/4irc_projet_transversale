@@ -1,6 +1,7 @@
 <?php
 require('./controleur/controleur.php');
 require('./controleur/api.php');
+header('Access-Control-Allow-Origin: *');
 
 error_reporting(E_ALL ^ E_NOTICE);
 $params = explode('/', htmlspecialchars(rtrim($_GET['action'],'/')));
@@ -66,7 +67,8 @@ if($params[0] == "api"){
             break;
     }exit();
 }elseif($action=="getApiFeu"){
-    //
+    $_POST['intensite'];
+    $_POST['frequence'];
 }else{
     carte(); 
 }

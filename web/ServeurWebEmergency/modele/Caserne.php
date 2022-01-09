@@ -30,12 +30,13 @@
             return $resultat;
         }
 
-        function putAllCasernes($data){
+        function putAllCasernes($data){ 
             $data = json_decode($data, true);
             foreach($data as $key => $val){
+                
                 $sql = "
                     INSERT INTO caserne (id_caserne, nom_caserne, coordonnee_x, coordonnee_y, total_pompier) 
-                    VALUES ({$data[$key]['id_caserne']}, {$data[$key]['nom_caserne']}, {$data[$key]['coordonnee_x']}, {$data[$key]['coordonnee_y']}, {$data[$key]['total_pompier']})
+                    VALUES ('".$data[$key]['id_caserne']."', '".$data[$key]['nom_caserne']."', '".$data[$key]['coordonnee_x']."', '".$data[$key]['coordonnee_y']."', '".$data[$key]['total_pompier']."')
                     ON DUPLICATE KEY UPDATE nom_caserne= VALUES(nom_caserne), coordonnee_x= VALUES(coordonnee_x), coordonnee_y=  VALUES(coordonnee_y), total_pompier=  VALUES(total_pompier)
                 ";
                 $query = $this->_connexion->prepare($sql);

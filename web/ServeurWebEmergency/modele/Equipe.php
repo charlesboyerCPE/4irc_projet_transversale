@@ -30,7 +30,7 @@
             foreach($data as $key => $val){
                 $sql = "
                     INSERT INTO equipe (id_equipe, date_constitution) 
-                    VALUES ({$data[$key]['id_equipe']}, {$data[$key]['date_constitution']})
+                    VALUES ('".$data[$key]['id_equipe']."', '".$data[$key]['date_constitution']."')
                     ON DUPLICATE KEY UPDATE date_constitution= VALUES(date_constitution)
                 ";
                 $query = $this->_connexion->prepare($sql);
