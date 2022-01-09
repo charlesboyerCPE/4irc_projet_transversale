@@ -12,16 +12,15 @@ import org.json.JSONObject;
 import org.apache.log4j.Logger;
 
 public class Capteur {
-    private int id_capteur;
-    private int perimetre;
+    private final int id_capteur;
+    private final int perimetre;
     private int intensite;
     private boolean isAlive;
-    private Coordonnees coord;
+    private final  Coordonnees coord;
 
     private final Logger logger;
 
-    public Capteur()
-    {
+    public Capteur() {
         this.id_capteur = 0;
         this.isAlive = true;
         this.intensite = 0;
@@ -89,11 +88,11 @@ public class Capteur {
         return id_capteur;
     }
 
-    public float getX() {
+    public double getX() {
         return coord.getX();
     }
 
-    public float getY() {
+    public double getY() {
         return coord.getY();
     }
 

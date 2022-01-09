@@ -3,39 +3,45 @@ package src.simulateur.model.FeuModel;
 import src.commun.Capteur;
 import src.commun.Feu;
 import src.commun.api.DialogueExterneAPI;
-import src.simulateur.model.Camion;
 import src.simulateur.model.Model;
 
 import org.json.JSONArray;
 import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class FeuModel extends Model {
-    private List<Feu> listeFeux;
+public class FeuModel {
+    private List<Feu> feux;
+    private DialogueExterneAPI api;
+    private JSONArray json;
+
     private final Logger logger;
 
     public FeuModel() {
-        listeFeux = new ArrayList<>();
+        feux = new ArrayList<>();
+        this.api = null;
+        this.json = new JSONArray();
+
         logger = Logger.getLogger(String.valueOf(FeuModel.class));
     }
 
-    // Méthode générant un feu aux coordonnées du capteur en paramètre et l'ajoute en base de donnée
+    // Méthode générant un feu aux coordonnées du capteur en paramètre et l'ajoute en base de données
     public void genererFeu(String urlApi, Capteur capteur) {
         int codeRetour = -1;
         JSONArray jsonArray = new JSONArray();
         Feu feu = null;
 
         // Génération d'un feu au niveau du capteur
-        if (listeFeux.size() == 0) {
-            feu = new Feu(listeFeux.size(), 0, 1, capteur.getX(), capteur.getY(), capteur);
+        if (feux.size() == 0) {
+            feu = new Feu(0, 0, 1, capteur.getX(), capteur.getY(), capteur);
         } else {
-            feu = new Feu(listeFeux.size() + 1, 0, 1, capteur.getX(), capteur.getY(), capteur);
+            feu = new Feu(feux.size() + 1, 0, 1, capteur.getX(), capteur.getY(), capteur);
         }
 
         logger.info("Feu généré : " + feu);
-        listeFeux.add(feu);
+        feux.add(feu);
 
         // Ajout dans le JSON
         jsonArray.put(feu.toJson());
@@ -56,6 +62,12 @@ public class FeuModel extends Model {
         int codeRetour = -1;
 
         this.api = new DialogueExterneAPI(urlApi);
+        
+        for(int i = 0; i < feux.size(); i++) {
+            if (feux.get(i).getIdFeu() == idFeu) {
+                feux.remove(i);
+            }
+        }
 
         codeRetour = this.api.deleteDonnees("feu/" + idFeu);
         if(codeRetour == 200) {
@@ -73,17 +85,17 @@ public class FeuModel extends Model {
         // Modification intensité
         switch (mode) {
             case 1 -> { // Augmentation
-                listeFeux.get(idFeu).setIntensite(listeFeux.get(idFeu).getIntensite() + 1);
+                feux.get(idFeu).setIntensite(feux.get(idFeu).getIntensite() + 1);
                 logger.info("Intensité du Feu n°" + idFeu + " augmenté");
             }
             case 2 -> { // Diminution
-                listeFeux.get(idFeu).setIntensite(listeFeux.get(idFeu).getIntensite() - 1);
+                feux.get(idFeu).setIntensite(feux.get(idFeu).getIntensite() - 1);
                 logger.info("Intensité du Feu n°" + idFeu + " baissé");
             }
         }
 
         // Ajout dans le JSON
-        jsonArray.put(listeFeux.get(idFeu).toJson());
+        jsonArray.put(feux.get(idFeu).toJson());
 
         // Envoi à la base de données
         this.api = new DialogueExterneAPI(urlApi);
@@ -95,7 +107,7 @@ public class FeuModel extends Model {
         }
     }
 
-    public List<Feu> getListeFeux() {
-        return listeFeux;
+    public List<Feu> getfeux() {
+        return feux;
     }
 }

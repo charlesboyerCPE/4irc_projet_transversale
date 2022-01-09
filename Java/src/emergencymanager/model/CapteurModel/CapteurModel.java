@@ -1,5 +1,4 @@
-package src.simulateur.model.CapteurModel;
-
+package src.emergencymanager.model.CapteurModel;
 import src.commun.Capteur;
 import src.commun.api.DialogueExterneAPI;
 
@@ -12,18 +11,18 @@ import java.util.Random;
 
 public class CapteurModel {
     private List<Capteur> capteurs;
-    
+
     private DialogueExterneAPI api;
     private JSONArray json;
     private final Logger logger;
 
     public CapteurModel() {
         capteurs = new ArrayList<Capteur>();
-        
+
         this.api = null;
         this.json = new JSONArray();
 
-        logger = Logger.getLogger(String.valueOf(CapteurModel.class));
+        logger = Logger.getLogger(String.valueOf(src.simulateur.model.CapteurModel.CapteurModel.class));
     }
 
     // Méthode permettant de mettre à jour un capteur dans la BDD
@@ -51,7 +50,7 @@ public class CapteurModel {
         int codeRetour = -1;
 
         this.api = new DialogueExterneAPI(urlApi);
-        
+
         // Suppression du capteur
         for (int i = 0; i < capteurs.size(); i++) {
             if (capteurs.get(i).getIdCapteur() == id_capteur) {
@@ -122,3 +121,4 @@ public class CapteurModel {
         return capteurs;
     }
 }
+

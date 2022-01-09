@@ -29,7 +29,7 @@ public class DialogueExterneAPI
     {
         this.urlAPI = urlAPI;
         this.connection = null;
-        logger = Logger.getLogger(String.valueOf(DialogueExterneAPI.class));
+        logger = Logger.getLogger(DialogueExterneAPI.class);
     }
 
     private void creerRequete(String methode, String urlFin) {
@@ -39,7 +39,7 @@ public class DialogueExterneAPI
             this.connection.setRequestMethod(methode);
             this.connection.setRequestProperty("Content-Type", "application/json; utf-8");
 
-            logger.info("Connexion à l'URL : " + urlAPI + urlFin);
+            logger.info("[creerRequete()] - " + methode + " : " + urlAPI + urlFin);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,7 +59,6 @@ public class DialogueExterneAPI
             // Création requête
             creerRequete("GET", url);
             codeRetour = this.connection.getResponseCode();
-            logger.info("Connexion API: " + codeRetour + " " + this.connection.getResponseMessage());
 
             if(codeRetour == HttpURLConnection.HTTP_OK) {
 
@@ -74,15 +73,15 @@ public class DialogueExterneAPI
                 }
 
                 // Parser la réponse
-                logger.info("Reponse: " + reponse);
+                logger.info("[getDonnees()] - Message recu : " + reponse);
                 json = new JSONArray(reponse.toString());
 
                 // Fermeture de la connexion
                 is.close();
-                logger.info("Connexion fermée");
+                logger.info("[getDonnees()] - Connexion fermée");
 
             } else {
-                logger.error("Aucune données reçu:  " + codeRetour + " " + this.connection.getResponseMessage());
+                logger.error("[getDonnees()] - Aucune données reçu:  " + codeRetour + " " + this.connection.getResponseMessage());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,14 +106,14 @@ public class DialogueExterneAPI
             // Récupération de la réponse de l'API
             codeRetour = this.connection.getResponseCode();
             if(codeRetour == HttpURLConnection.HTTP_CREATED) {
-                logger.info("MaJ des données effectuées: " + codeRetour + " " + this.connection.getResponseMessage());
+                logger.info("[setDonnees()] - PUT " + codeRetour + " " + this.connection.getResponseMessage());
             } else {
-                logger.error("MaJ Données : " + codeRetour + " " + this.connection.getResponseMessage());
+                logger.error("[setDonnees()] - PUT : " + codeRetour + " " + this.connection.getResponseMessage());
             }
 
             // Fermeture de la connexion
             os.close();
-            logger.info("Connexion fermée");
+            logger.info("[setDonnees()] - Connexion fermée");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -130,11 +129,12 @@ public class DialogueExterneAPI
         try {
             // Création requête
             creerRequete("DELETE", url);
+            this.connection.setDoOutput(true);
             codeRetour = this.connection.getResponseCode();
-            logger.info("Code Retour HTTP: " + codeRetour);
+            logger.info("[deleteDonnees()] - DELETE: " + codeRetour);
 
             if(codeRetour == HttpURLConnection.HTTP_ACCEPTED) {
-                logger.info("DELETE Effectue: " + codeRetour);
+                logger.info("[deleteDonnees()] - DELETE Effectue: " + codeRetour);
             }
         } catch (IOException e) {
             e.printStackTrace();

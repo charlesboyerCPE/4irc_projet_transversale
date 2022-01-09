@@ -2,41 +2,41 @@ package src.commun;
 
 public class Coordonnees
 {
-    private float x;
-    private float y;
+    private double x;
+    private double y;
 
     public Coordonnees() {
         this.x = 0;
         this.y = 0;
     }
 
-    public Coordonnees(float x, float y)
+    public Coordonnees(double x, double y)
     {
         this.x = x;
         this.y = y;
     }
 
-    public float getX() {
+    public double getX() {
         return x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
-    public void setX(float x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public void setY(float y) {
+    public void setY(double y) {
         this.y = y;
     }
 
     @Override
     public String toString() {
         return "Coordonnees {" +
-                "x= " + x +
-                ", y=" + y +
-                " }";
+                "[" + x +
+                "," + y +
+                " ]}";
     }
 }

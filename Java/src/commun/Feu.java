@@ -27,7 +27,7 @@ public class Feu {
         this.logger = Logger.getLogger(Feu.class);
     }
 
-    public Feu(int id_feu, int frequence, int intensite, float x, float y, Capteur capteur)
+    public Feu(int id_feu, int frequence, int intensite, double x, double y, Capteur capteur)
     {
         this.id_feu = id_feu;
         this.frequence = frequence;
@@ -42,11 +42,11 @@ public class Feu {
         return id_feu;
     }
 
-    public float getX() {
+    public double getX() {
         return coord.getX();
     }
 
-    public float getY() {
+    public double getY() {
         return coord.getY();
     }
 

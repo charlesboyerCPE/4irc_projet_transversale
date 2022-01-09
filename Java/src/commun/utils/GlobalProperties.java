@@ -3,7 +3,7 @@ package src.commun.utils;
 // Classe répertoriant les adresses des API
 public class GlobalProperties
 {
-    public static final String ADRESSE_SERVEUR_LAURINE = "192.168.3.197";
+    public static final String ADRESSE_SERVEUR_LAURINE = "192.168.1.35";
     public static final String ADRESSE_SERVEUR_LOCAL = "127.0.0.1";
     public static final String PORT_SERVEUR = "80";
 

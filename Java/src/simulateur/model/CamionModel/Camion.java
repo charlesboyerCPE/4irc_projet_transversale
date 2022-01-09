@@ -1,4 +1,4 @@
-package src.simulateur.model;
+package src.simulateur.model.CamionModel;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -13,11 +13,11 @@ public class Camion {
 
     private final Logger logger;
 
-    public Camion(int id_camion, String type, int x, int y, int xDest, int yDest) {
+    public Camion(int id_camion, String type, int x, int y) {
         this.id_camion = id_camion;
         this.type = type;
         this.coord = new Coordonnees(x, y);
-        this.coordDestination = new Coordonnees(xDest, yDest);
+        this.coordDestination = null;
         logger = Logger.getLogger(Camion.class);
     }
 
@@ -37,11 +37,11 @@ public class Camion {
         return this.type;
     }
 
-    public float getX() {
+    public double getX() {
         return this.coord.getX();
     }
 
-    public float getY() {
+    public double getY() {
         return this.coord.getY();
     }
 
@@ -53,20 +53,12 @@ public class Camion {
         this.coord.setY(y);
     }
 
-    public float getDestX() {
+    public double getDestX() {
         return this.coordDestination.getX();
     }
 
-    public float getDestY() {
+    public double getDestY() {
         return this.coordDestination.getY();
-    }
-
-    public void setDestX(float xDest) {
-        this.coordDestination.setX(xDest);
-    }
-
-    public void setDestY(float yDest) {
-        this.coordDestination.setY(yDest);
     }
 
     public JSONObject toJson() {

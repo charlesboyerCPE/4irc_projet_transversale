@@ -8,7 +8,7 @@
         }
 
         function getAllCapteurs(){
-            $sql = "SELECT * FROM capteur";
+            $sql = "SELECT * FROM Capteur";
             $query = $this->_connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll(PDO::FETCH_CLASS);
