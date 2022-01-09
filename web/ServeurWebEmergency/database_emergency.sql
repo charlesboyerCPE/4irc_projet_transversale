@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS `feu` (
   `id_capteur` int(4) NOT NULL,
   `intensite` int(4) NOT NULL,
   `frequence` int(4) NOT NULL,
-  `coordonnee_x` float NOT NULL,
-  `coordonnee_y` float NOT NULL,
+  `coordonnee_x` double NOT NULL,
+  `coordonnee_y` double NOT NULL,
   PRIMARY KEY (`id_feu`,`id_capteur`),
   KEY `id_capteur` (`id_capteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -75,8 +75,8 @@ CREATE TABLE IF NOT EXISTS `capteur` (
   `id_capteur` int(4) NOT NULL,
   `intensite` int(4) NOT NULL,
   `perimetre` int(4) NOT NULL,
-  `coordonnee_x` float NOT NULL,
-  `coordonnee_y` float NOT NULL,
+  `coordonnee_x` double NOT NULL,
+  `coordonnee_y` double NOT NULL,
   PRIMARY KEY (`id_capteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -106,10 +106,10 @@ CREATE TABLE IF NOT EXISTS `camion` (
   `disponibilite` tinyint(1) NOT NULL,
   `capacite` int(4) NOT NULL,
   `nb_pompier` int(4) NOT NULL,
-  `coordonnee_x` float NOT NULL,
-  `coordonnee_y` float NOT NULL,
-  `coordonnee_dest_x` float NOT NULL,
-  `coordonnee_dest_y` float NOT NULL,
+  `coordonnee_x` double NOT NULL,
+  `coordonnee_y` double NOT NULL,
+  `coordonnee_dest_x` double NOT NULL,
+  `coordonnee_dest_y` double NOT NULL,
   PRIMARY KEY (`id_camion`),
   KEY `id_caserne` (`id_caserne`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -156,8 +156,8 @@ DROP TABLE IF EXISTS `caserne`;
 CREATE TABLE IF NOT EXISTS `caserne` (
   `id_caserne` int(4) NOT NULL,
   `nom_caserne` varchar(20) NOT NULL,
-  `coordonnee_x` float NOT NULL,
-  `coordonnee_y` float NOT NULL,
+  `coordonnee_x` double NOT NULL,
+  `coordonnee_y` double NOT NULL,
   `total_pompier` int(4) NOT NULL,
   PRIMARY KEY (`id_caserne`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

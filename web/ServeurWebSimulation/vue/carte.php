@@ -14,7 +14,7 @@
                 <label for="frequence">Frequence</label>
                 <input type="number" class="form-control" id="frequence">
             </div>
-            <button id="envoyer" type="submit" class="btn btn-light">Submit</button>
+            <button id="envoyer" type="submit" class="btn btn-light">Valider</button>
         </form>
     </div>
 
