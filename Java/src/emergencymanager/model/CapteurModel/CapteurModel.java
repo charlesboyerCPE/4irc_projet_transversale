@@ -1,6 +1,6 @@
 package src.emergencymanager.model.CapteurModel;
 import src.commun.Capteur;
-import src.commun.api.DialogueExterneAPI;
+import src.commun.Api.DialogueExterneAPI;
 
 import org.json.JSONArray;
 import org.apache.log4j.Logger;
@@ -117,7 +117,7 @@ public class CapteurModel {
         }
     }
 
-    public List<Capteur> getcapteurs() {
+    public List<Capteur> getCapteurs() {
         return capteurs;
     }
 }

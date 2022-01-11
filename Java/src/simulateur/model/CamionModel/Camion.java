@@ -37,28 +37,20 @@ public class Camion {
         return this.type;
     }
 
-    public double getX() {
-        return this.coord.getX();
+    public Coordonnees getCoord() {
+        return this.coord;
     }
 
-    public double getY() {
-        return this.coord.getY();
-    }
-
-    public void setX(float x) {
+    public void setX(double x) {
         this.coord.setX(x);
     }
 
-    public void setY(float y) {
+    public void setY(double y) {
         this.coord.setY(y);
     }
 
-    public double getDestX() {
-        return this.coordDestination.getX();
-    }
-
-    public double getDestY() {
-        return this.coordDestination.getY();
+    public Coordonnees getCoordDest() {
+        return this.coordDestination;
     }
 
     public JSONObject toJson() {
@@ -66,8 +58,8 @@ public class Camion {
 
         json.put("id_camion", this.getId_camion());
         json.put("type_produit", this.getType());
-        json.put("coordonnee_x", this.getX());
-        json.put("coordonnee_y", this.getY());
+        json.put("coordonnee_x", this.coord.getX());
+        json.put("coordonnee_y", this.coord.getY());
 
         logger.info("JSON créer : " + json);
 

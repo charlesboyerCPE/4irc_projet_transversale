@@ -9,11 +9,12 @@ import java.util.List;
 public class Feu {
 
     private int id_feu;
+    private int id_capteur;
     private int frequence;
     private int intensite;
+    private boolean traitement;
 
     private Coordonnees coord;
-    private List<Capteur> capteurs;
 
     private final Logger logger;
 
@@ -23,39 +24,45 @@ public class Feu {
         this.frequence = 0;
         this.intensite = 0;
         this.coord = new Coordonnees(0,0);
-        this.capteurs = new ArrayList<Capteur>();
+        this.traitement = false;
         this.logger = Logger.getLogger(Feu.class);
     }
 
-    public Feu(int id_feu, int frequence, int intensite, double x, double y, Capteur capteur)
+    public Feu(int id_feu, int id_capteur, int frequence, int intensite, double x, double y)
     {
         this.id_feu = id_feu;
+        this.id_capteur = id_capteur;
         this.frequence = frequence;
         this.intensite = intensite;
         this.coord = new Coordonnees(x, y);
-        this.capteurs = new ArrayList<Capteur>();
-        this.capteurs.add(capteur);
+        this.traitement = false;
         this.logger = Logger.getLogger(String.valueOf(Feu.class));
+    }
+
+    public Feu(JSONObject json, Capteur capteur) {
+        this.id_feu = json.getInt("id_feu");
+        this.frequence = json.getInt("frequence");
+        this.intensite = json.getInt("intensite");
+        this.id_capteur = json.getInt("id_capteur");
+        this.coord = new Coordonnees(json.getDouble("coordonnee_x"), json.getDouble("coordonnee_y"));
+
+        logger = Logger.getLogger(Feu.class);
     }
 
     public int getIdFeu() {
         return id_feu;
     }
 
-    public double getX() {
-        return coord.getX();
+    public int getId_capteur() {
+        return id_capteur;
     }
 
-    public double getY() {
-        return coord.getY();
+    public Coordonnees getCoord() {
+        return this.coord;
     }
 
     public int getFrequence() {
         return frequence;
-    }
-
-    public List<Capteur> getCapteurs() {
-        return capteurs;
     }
 
     public int getIntensite() {
@@ -70,11 +77,11 @@ public class Feu {
         JSONObject json = new JSONObject();
 
         json.put("id_feu", this.getIdFeu());
-        json.put("id_capteur", this.getCapteurs().get(0).getIdCapteur());
+        json.put("id_capteur", this.getId_capteur());
         json.put("intensite", this.getIntensite());
         json.put("frequence", this.getFrequence());
-        json.put("coordonnee_x", this.getX());
-        json.put("coordonnee_y", this.getY());
+        json.put("coordonnee_x", this.getCoord().getX());
+        json.put("coordonnee_y", this.getCoord().getY());
 
         logger.info("JSON créer : " + json);
 
@@ -85,10 +92,10 @@ public class Feu {
     public String toString() {
         return "\nFeu {" +
                 "\n\tid_feu=" + id_feu +
+                "\n\tid_capteur=" + id_capteur +
                 "\n\tfrequence=" + frequence +
                 "\n\tintensite=" + intensite +
                 "\n\tcoord=" + coord +
-                "\n\tcapteurs=" + capteurs +
                 "\n}";
     }
 }

@@ -1,7 +1,7 @@
 package src.emergencymanager.model.CamionModel;
 
 import org.json.JSONArray;
-import src.commun.api.DialogueExterneAPI;
+import src.commun.Api.DialogueExterneAPI;
 
 import org.apache.log4j.Logger;
 import src.emergencymanager.model.CaserneModel.Caserne;
@@ -31,14 +31,13 @@ public class CamionModel {
 
         // Récupération de tous les camions de la base de données
         this.json = this.api.getDonnees("camions");
-        logger.info("[obtenirCamionBDD()] JSON Reçu : " + json);
 
         // Création des objets Camion
         for (int i = 0; i < json.length(); i++) {
-            for(int j = 0; j < casernes.size(); j++) {
+            for (Caserne caserne : casernes) {
                 // Vérification de l'id de la caserne
-                if (casernes.get(j).getId_caserne() == json.getJSONObject(i).getInt("id_caserne")) {
-                    camions.add(new Camion(this.json.getJSONObject(i), casernes.get(j)));
+                if (caserne.getId_caserne() == json.getJSONObject(i).getInt("id_caserne")) {
+                    camions.add(new Camion(this.json.getJSONObject(i), caserne));
                     logger.info("[obtenirCamionBDD()] Camion récupéré : \n" + camions.get(i).toString());
                 }
             }
@@ -46,34 +45,28 @@ public class CamionModel {
     }
 
     // Méthode permettant de créer des camions
-    public void initialiserCamions(String urlApi, Caserne caserne) {
+    public void creerCamions(String urlApi, Caserne caserne) {
         int codeRetour = -1;
-        Camion camion = null;
+        Camion camion;
 
         this.api = new DialogueExterneAPI(urlApi);
 
         if (camions.size() == 0) {
-            // Création d'un camion
-            if (camions.size() == 0){
-                camion = new Camion(0, 1, 4, "Camion", caserne);
-            } else {
-                camion = new Camion(camions.size() + 1, 1, 4, "Camion", caserne);
-            }
-            camions.add(camion);
-            logger.info("[creerCamions()] - Camion créer : " + camion);
-            this.json.put(camion.toJson());
-            logger.info("[creerCamions()] - JSON créer : \n" + json);
-
-            // MaJ de la base
-            codeRetour = this.api.setDonnees("camions", this.json);
-            if (codeRetour == HttpURLConnection.HTTP_CREATED) {
-                logger.info("[creerCamions()] - Camion créer en base");
-            } else {
-                logger.error("[creerCamions()] - Camion non inséré");
-                camions.clear();
-            }
+            camion = new Camion(0, 1, 4, "Camion", caserne);
         } else {
-            logger.info("[creerCamions()] - Liste camions déjà initialisé");
+            camion = new Camion(camions.size(), 1, 4, "Camion", caserne);
+        }
+
+        camions.add(camion);
+        this.json.put(camion.toJson());
+
+        // MaJ de la base
+        codeRetour = this.api.setDonnees("camions", this.json);
+        if (codeRetour == HttpURLConnection.HTTP_CREATED) {
+            logger.info("[creerCamions()] - Camion créer : " + camion);
+        } else {
+            logger.error("[creerCamions()] - Camion non inséré");
+            camions.remove(camion);
         }
     }
 
@@ -106,15 +99,15 @@ public class CamionModel {
         this.api = new DialogueExterneAPI(urlApi);
 
         // Mise à jour destination
-        for (int i = 0; i < camions.size(); i++) {
-            if(camions.get(i).getId_camion() == id_camion) {
+        for (Camion camion : camions) {
+            if (camion.getId_camion() == id_camion) {
 
                 // Si coordDest pas initialisé
-                logger.info("[definirDestination()] - Destination initiale : [" + camions.get(i).getXDest() + ";" + camions.get(i).getXDest() + "]");
-                camions.get(i).setDestX(xDest);
-                camions.get(i).setDestY(xDest);
-                logger.info("[definirDestination()] - Nouvelle destination : [" + camions.get(i).getXDest() + ";" + camions.get(i).getXDest() + "]");
-                json.put(camions.get(i).toJson());
+                logger.info("[definirDestination()] - Destination initiale : [" + camion.getCoordDest().getX() + ";" + camion.getCoordDest().getY() + "]");
+                camion.setDestX(xDest);
+                camion.setDestY(yDest);
+                logger.info("[definirDestination()] - Nouvelle destination : [" + camion.getCoordDest().getX() + ";" + camion.getCoordDest().getY() + "]");
+                json.put(camion.toJson());
             }
         }
 

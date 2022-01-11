@@ -1,6 +1,6 @@
 //TODO en-tête Content-Length (nombre d'octet)
 
-package src.commun.api;
+package src.commun.Api;
 
 import org.json.JSONArray;
 import org.apache.log4j.Logger;

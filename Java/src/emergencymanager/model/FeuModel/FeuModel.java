@@ -1,11 +1,10 @@
-package src.simulateur.model.FeuModel;
+package src.emergencymanager.model.FeuModel;
 
+import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import src.commun.Api.DialogueExterneAPI;
 import src.commun.Capteur;
 import src.commun.Feu;
-import src.commun.Api.DialogueExterneAPI;
-
-import org.json.JSONArray;
-import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,7 @@ public class FeuModel {
     }
 
     // Méthode générant un feu aux coordonnées du capteur en paramètre et l'ajoute en base de données
-    public void genererFeu(String urlApi, int id_capteur, int intensite, double x, double y) {
+    public Feu genererFeu(String urlApi, int id_capteur, int intensite, double x, double y) {
         int codeRetour = -1;
         JSONArray jsonArray = new JSONArray();
         Feu feu = null;
@@ -74,6 +73,8 @@ public class FeuModel {
         } else {
             logger.error("Insertion dans la base");
         }
+
+        return feu;
     }
 
     // Méthode permettant de supprimer un feu de la simulation
@@ -93,36 +94,6 @@ public class FeuModel {
             logger.info("Feu n°" + idFeu + " supprimé");
         } else {
             logger.error("Feu n°" + idFeu + " non supprimé");
-        }
-    }
-
-    // Méthode permettant de baisser/augmenter l'intensité d'un feu de une unité
-    public void modificationIntensite(int mode, String urlApi, int idFeu) {
-        int codeRetour = -1;
-        JSONArray jsonArray = new JSONArray();
-
-        // Modification intensité
-        switch (mode) {
-            case 1 -> { // Augmentation
-                feux.get(idFeu).setIntensite(feux.get(idFeu).getIntensite() + 1);
-                logger.info("[modificationIntensite()] - Intensité du Feu n°" + idFeu + " augmenté");
-            }
-            case 2 -> { // Diminution
-                feux.get(idFeu).setIntensite(feux.get(idFeu).getIntensite() - 1);
-                logger.info("[modificationIntensite()] - Intensité du Feu n°" + idFeu + " baissé");
-            }
-        }
-
-        // Ajout dans le JSON
-        jsonArray.put(feux.get(idFeu).toJson());
-
-        // Envoi à la base de données
-        this.api = new DialogueExterneAPI(urlApi);
-        codeRetour = this.api.setDonnees("feux", jsonArray);
-        if(codeRetour == 201) {
-            logger.info("[modificationIntensite()] - Intensité du Feu n°" + idFeu + " modifié");
-        } else {
-            logger.error("[modificationIntensite()] - Inténsité du Feu n°" + idFeu + " non modifié");
         }
     }
 

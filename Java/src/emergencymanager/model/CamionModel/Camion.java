@@ -14,6 +14,7 @@ public class Camion {
     private final int disponibilite;
     private final int capacite;
     private final String type_produit;
+    private boolean en_intervention;
 
     private final Caserne caserne;
     private List<Pompier> pompiers;
@@ -26,10 +27,10 @@ public class Camion {
         this.id_camion = id_camion;
         this.disponibilite = disponibilite;
         this.capacite = capacite;
+        this.en_intervention = false;
         this.type_produit = type_produit;
-
         this.coord = new Coordonnees(caserne.getX(), caserne.getY());
-        this.coordDest = new Coordonnees(0,0);
+        this.coordDest = new Coordonnees(0, 0);
         this.caserne = caserne;
         this.pompiers = null;
 
@@ -44,6 +45,7 @@ public class Camion {
         this.type_produit = json.getString("type_produit");
         this.coord = new Coordonnees(json.getFloat("coordonnee_x"), json.getFloat("coordonnee_y"));
         this.coordDest = new Coordonnees(json.getFloat("coordonnee_dest_x"), json.getFloat("coordonnee_dest_y"));
+        this.en_intervention = false;
         this.caserne = caserne;
         this.pompiers = null;
 
@@ -74,20 +76,12 @@ public class Camion {
         return this.caserne.getId_caserne();
     }
 
-    public double getX() {
-        return this.coord.getX();
+    public Coordonnees getCoord() {
+        return this.coord;
     }
 
-    public double getY() {
-        return this.coord.getY();
-    }
-
-    public double getXDest() {
-        return this.coordDest.getX();
-    }
-
-    public double getYDest() {
-        return this.coordDest.getY();
+    public Coordonnees getCoordDest() {
+        return this.coordDest;
     }
 
     public void setDestX(double xDest) {
@@ -104,6 +98,14 @@ public class Camion {
         } else {
             this.coordDest.setY(yDest);
         }
+    }
+
+    public boolean isEn_intervention() {
+        return en_intervention;
+    }
+
+    public void setEn_intervention(boolean en_intervention) {
+        this.en_intervention = en_intervention;
     }
 
     public void setPompiers(List<Pompier> pompiers) {

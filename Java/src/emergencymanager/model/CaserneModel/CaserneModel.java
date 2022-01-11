@@ -3,7 +3,7 @@ package src.emergencymanager.model.CaserneModel;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 
-import src.commun.api.DialogueExterneAPI;
+import src.commun.Api.DialogueExterneAPI;
 import src.emergencymanager.model.PompierModel.Pompier;
 
 import java.net.HttpURLConnection;

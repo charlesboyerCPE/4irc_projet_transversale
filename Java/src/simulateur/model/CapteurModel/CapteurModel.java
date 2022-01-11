@@ -1,7 +1,7 @@
 package src.simulateur.model.CapteurModel;
 
 import src.commun.Capteur;
-import src.commun.api.DialogueExterneAPI;
+import src.commun.Api.DialogueExterneAPI;
 
 import org.json.JSONArray;
 import org.apache.log4j.Logger;
@@ -15,6 +15,7 @@ public class CapteurModel {
     
     private DialogueExterneAPI api;
     private JSONArray json;
+
     private final Logger logger;
 
     public CapteurModel() {
@@ -118,7 +119,37 @@ public class CapteurModel {
         }
     }
 
-    public List<Capteur> getcapteurs() {
+    // Méthode permettant de modifier l'intensité d'un capteur
+    public void modificationIntensite(int mode, String urlApi, int id_capteur) {
+        int codeRetour = -1;
+        JSONArray jsonArray = new JSONArray();
+
+        // Modification intensité
+        switch (mode) {
+            case 1 -> { // Augmentation
+                capteurs.get(id_capteur).setIntensite(capteurs.get(id_capteur).getIntensite() + 1);
+                logger.info("[modificationIntensite()] - Intensité du Capteur n°" + id_capteur + " augmenté");
+            }
+            case 2 -> { // Diminution
+                capteurs.get(id_capteur).setIntensite(capteurs.get(id_capteur).getIntensite() - 1);
+                logger.info("[modificationIntensite()] - Intensité du Capteur n°" + id_capteur + " baissé");
+            }
+        }
+
+        // Ajout dans le JSON
+        jsonArray.put(capteurs.get(id_capteur).toJson());
+
+        // Envoi à la base de données
+        this.api = new DialogueExterneAPI(urlApi);
+        codeRetour = this.api.setDonnees("capteurs", jsonArray);
+        if(codeRetour == 201) {
+            logger.info("[modificationIntensite()] - Intensité du Capteur n°" + id_capteur + " modifié");
+        } else {
+            logger.error("[modificationIntensite()] - Inténsité du Capteur n°" + id_capteur + " non modifié");
+        }
+    }
+
+    public List<Capteur> getCapteurs() {
         return capteurs;
     }
 }
