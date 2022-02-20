@@ -1,0 +1,38 @@
+package testing;
+
+import org.json.JSONObject;
+import org.junit.jupiter.api.Test;
+import src.commun.CapteurModel;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class TestCapteurModel
+{
+    @Test
+    void Instanciation() {
+        System.out.println("Test Instanciation");
+
+        CapteurModel capteurModel = new CapteurModel(List<0,0>);
+
+        // Test des champs
+        assertEquals(List<>, capteurModel.getListeCapteurs());
+
+        System.out.println("Instanciation : Test réussi");
+    }
+
+    @Test
+    void CapteurModelToJSON() {
+        System.out.println("Test CapteurModelToJSON");
+
+        // Création des objets
+        CapteurModel capteurModel = new CapteurModel(List<0,0>);
+        JSONObject json = new JSONObject();
+
+        json.put("Liste_capteurs", List<>);
+
+        assertEquals(json.toString(), capteurModel.toJson().toString());
+
+        System.out.println("CapteurModelToJSON : Test réussi");
+    }
+}

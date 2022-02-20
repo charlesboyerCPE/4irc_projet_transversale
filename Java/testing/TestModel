@@ -1,0 +1,40 @@
+package testing;
+
+import org.json.JSONObject;
+import org.junit.jupiter.api.Test;
+import src.commun.Model;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class TestModel
+{
+    @Test
+    void Instanciation() {
+        System.out.println("Test Instanciation");
+
+        Model Model = new Model(null, null);
+
+        // Test des champs
+        assertEquals(null, Model.attribuerCamion());
+        assertEquals(null, Model.genererFeu());
+
+        System.out.println("Instanciation : Test réussi");
+    }
+
+    @Test
+    void ModelToJSON() {
+        System.out.println("Test ModelToJSON");
+
+        // Création des objets
+        Model Model = new Model(null,null);
+        JSONObject json = new JSONObject();
+
+        json.put("listeCamions", List<>);
+        json.put("api", null);
+
+        assertEquals(json.toString(), Model.toJson().toString());
+
+        System.out.println("ModelToJSON : Test réussi");
+    }
+}

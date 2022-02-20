@@ -21,9 +21,15 @@
 
     <div class="icones">
         <legend>Légende de la carte :</legend>
+<<<<<<< HEAD
         <img src="./public/img/capteur.png">Capteur
         <img src="./public/img/feu.png">Feu
         <img src="./public/img/camion.png">Camion
+=======
+        <img src="../public/img/capteur.png">Capteur
+        <img src="../public/img/feu.png">Feu
+        <img src="../public/img/camion.png">Camion
+>>>>>>> fe20742a4296f16765957b6c799131b15483f342
     </div>
     <div id="map"></div>
 </div>
