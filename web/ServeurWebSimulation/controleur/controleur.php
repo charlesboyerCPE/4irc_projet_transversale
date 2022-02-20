@@ -7,15 +7,11 @@ function carte()
 {
     $capteurs = new Capteur;
     $liste_capteurs = $capteurs->getAllCapteurs();
-    //var_dump($liste_capteurs);
 
-   require('vue/carte.php');
+    $feux = new Feu;
+    $liste_feux = $feux->getAllFeux();
+
+    require('vue/carte.php');
 }
 
-
-function dashboard()
-{
-    
-    require('vue/dashboard.php');
-}
 ?>

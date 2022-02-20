@@ -8,7 +8,7 @@
         }
 
         function getAllConstitutions(){
-            $sql = "SELECT * FROM Constitution";
+            $sql = "SELECT * FROM constitution";
             $query = $this->_connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll(PDO::FETCH_CLASS);

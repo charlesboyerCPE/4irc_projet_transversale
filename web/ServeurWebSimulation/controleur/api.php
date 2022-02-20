@@ -1,53 +1,55 @@
 <?php
-//require_once ('./modele/BDD.php');
 require_once ('./modele/Capteur.php');
 require_once ('./modele/Feu.php');
 
 //Capteur
 function api_get_capteur($id){
     $capteur = new Capteur;
-    $listeCapteur = $capteur->getCapteurById($id);
+    if(isset($id)){
+        $listeCapteur = $capteur->getCapteurById($id);
+    }else{
+        $listeCapteur = $capteur->getAllCapteurs();
+    }
     echo json_encode($listeCapteur);
 }
 
-function api_get_capteurs(){
+function api_put_capteur($data){
     $capteur = new Capteur;
-    $listeCapteurs = $capteur->getAllCapteurs();
-    echo json_encode($listeCapteurs);
+    $capteur->putAllCapteurs($data);
 }
 
-function api_put_capteur($id){
+function api_delete_capteur($id, $data){
     $capteur = new Capteur;
-    $listeCapteur = $capteur->putCapteurById($id);
-}
-
-function api_put_capteurs($data){
-    $capteur = new Capteur;
-    $listeCapteurs = $capteur->putAllCapteurs($data);
+    if(isset($id)){
+        $capteur->deleteCapteurById($id);
+    }else{
+        $capteur->deleteCapteurs($data);
+    }
 }
 
 //Feu
 function api_get_feu($id){
     $feu = new Feu;
-    $listeFeu = $feu->getFeuById($id);
+    if(isset($id)){
+        $listeFeu = $feu->getFeuById($id);
+    }else{
+        $listeFeu = $feu->getAllFeux();
+    }
     echo json_encode($listeFeu);
 }
 
-function api_get_feux(){
+function api_put_feu($data){
     $feu = new Feu;
-    $listeFeux = $feu->getAllFeux();
-    echo json_encode($listeFeux);
+    $feu->putAllFeux($data);
 }
 
-function api_put_feu($id){
+function api_delete_feu($id, $data){
     $feu = new Feu;
-    $listeFeu = $feu->putFeuById($id);
+    if(isset($id)){
+        $feu->deleteFeuById($id);
+    }else{
+        $feu->deleteFeux($data);
+    }  
 }
-
-function api_put_feux($data){
-    $feu = new Feu;
-    $listeFeux = $feu->putAllFeux($data);
-}
-
 
 ?>
