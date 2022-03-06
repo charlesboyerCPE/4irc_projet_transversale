@@ -52,18 +52,18 @@ public class Controller extends TimerTask {
         // Récupération des données de la base de données
         getAllDonneesBDD();
 
-        List<Camion> camions = camionModel.getCamions();
-        List<Caserne> casernes = caserneModel.getCasernes();
-        List<Capteur> capteurs = capteurModel.getCapteurs();
-        List<Incident> incidents = incidentModel.getIncidents();
+        ArrayList<Camion> camions = new ArrayList<>(camionModel.getCamions());
+        ArrayList<Caserne> casernes = new ArrayList<>(caserneModel.getCasernes());
+        ArrayList<Capteur> capteurs = new ArrayList<>(capteurModel.getCapteurs());
+        ArrayList<Incident> incidents = new ArrayList<>(incidentModel.getIncidents());
 
         // Création des camions si BDD vide
         if (camions.size() == 0) {
-            initCamion(GlobalProperties.MAX_CAMION, casernes.get(0));
+            initCamion(1, casernes.get(0));
         }
 
         // Vérification des feux en cours
-        /*if(incidents.size() == 0) {
+        if(incidents.size() == 0) {
             for (int i = 0; i < capteurs.size(); i++) {
                 if(capteurs.get(i).getIntensite() > 0) {
                     Camion camion;
@@ -81,7 +81,7 @@ public class Controller extends TimerTask {
             }
         } else {
             identifierIncident(capteurs, camions, incidents);
-        }*/
+        }
     }
 
     // Méthode permettant d'obtenir toutes les données de la base

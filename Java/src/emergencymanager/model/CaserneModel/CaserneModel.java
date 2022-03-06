@@ -28,45 +28,44 @@ public class CaserneModel {
     // Méthode permettant d'initialiser la liste des casernes
     public void creerCasernes(String urlApi, int nbCasernes, List<Pompier> pompiers) {
         int codeRetour = -1;
-
+        int i = 0;
         this.api = new DialogueExterneAPI(urlApi);
 
         if (casernes.size() == 0) {
             // Création des casernes
-            for(int i = 0; i < nbCasernes; i++) {
+            for(i = 0; i < nbCasernes; i++) {
                 this.casernes.add(new Caserne(i, pompiers, "CPE Lyon", 45.3,4.8));
-                logger.info("[initialiserCasernes()] - Caserne créer:" + this.casernes.get(i));
                 this.json.put(this.casernes.get(i).toJson());
             }
-
-            logger.info("[initialiserCasernes()] - JSON créer:\n" + this.json);
+            logger.info(i + " casernes créer");
 
             // MaJ de la base de données
             codeRetour = this.api.setDonnees("casernes", this.json);
             if(codeRetour == HttpURLConnection.HTTP_CREATED) {
-                logger.info("[initialiserCasernes()] - Casernes ajouter dans la base");
+                logger.info("Casernes ajouter dans la base");
             } else {
                 casernes.clear();
-                logger.error("[initialiserCasernes()] - Liste vidé");
+                logger.error("ERREUR - Casernes non insérées dans la base");
             }
         } else {
-            logger.info("[initialiserCasernes()] - Casernes déjà initialisées");
+            logger.info("Casernes déjà initialisées");
         }
     }
 
     // Méthode permettant de récupérer les casernes présentes en base de données
     public void obtenirCasernesBDD(String urlApi, List<Pompier> pompiers) {
         this.api = new DialogueExterneAPI(urlApi);
+        int i = 0;
 
         // Récupération de toutes les casernes de la base de données
         this.json = this.api.getDonnees("casernes");
-        logger.info("[obtenirCasernesBDD()] - JSON Reçu : " + json);
 
         // Création des objets Pompiers
-        for (int i = 0; i < json.length(); i++) {
+        for (i = 0; i < json.length(); i++) {
             casernes.add(new Caserne(this.json.getJSONObject(i), pompiers));
-            logger.info("[obtenirCasernesBDD()] - Caserne récupéré : \n" + casernes.get(i).toString());
+
         }
+        logger.info(i + " casernes récupérées");
     }
 
     // Méthode permettant de supprimer une caserne
@@ -85,9 +84,9 @@ public class CaserneModel {
         // MaJ de la base de données
         codeRetour = this.api.deleteDonnees("caserne/" + id_caserne);
         if(codeRetour == 200) {
-            logger.info("[supprimerCaserne()] - Caserne n°" + id_caserne + " supprimé");
+            logger.info("Caserne n°" + id_caserne + " supprimé");
         } else {
-            logger.error("[supprimerCaserne()] - Caserne n°" + id_caserne + " non supprimé");
+            logger.error("ERREUR - Caserne n°" + id_caserne + " non supprimé");
         }
     }
 

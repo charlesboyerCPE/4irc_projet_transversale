@@ -71,7 +71,6 @@ public class DialogueExterneAPI
                 }
 
                 // Parser la réponse
-
                 json = new JSONArray(reponse.toString());
 
                 // Fermeture de la connexion

@@ -30,20 +30,20 @@ public class FeuModel {
     // Méthode permettant d'obtenir les feux de la base de données
     public void obtenirFeuxBDD(String urlApi, List<Capteur> capteurs) {
         this.api = new DialogueExterneAPI(urlApi);
+        int i = 0;
 
         // Récupération de tous les feux de la base de données
         this.json = this.api.getDonnees("feux");
-        logger.info("[obtenirFeuxBDD()] JSON Reçu : \n" + json);
 
         // Création des objets Feu
-        for (int i = 0; i < json.length(); i++) {
+        for (i = 0; i < json.length(); i++) {
             for(int j = 0; j < capteurs.size(); j++) {
                 if (capteurs.get(j).getIdCapteur() == json.getJSONObject(i).getInt("id_capteur")) {
                     feux.add(new Feu(this.json.getJSONObject(i), capteurs.get(j)));
-                    logger.info("[obtenirFeuxBDD()] Camion récupéré : \n" + feux.get(i).toString());
                 }
             }
         }
+        logger.info(i + " feu récupérés");
     }
 
     // Méthode générant un feu aux coordonnées du capteur en paramètre et l'ajoute en base de données

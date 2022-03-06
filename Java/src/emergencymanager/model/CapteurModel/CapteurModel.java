@@ -70,6 +70,7 @@ public class CapteurModel {
 
     // Méthode permettant d'obtenir tous les capteurs présent dans la BDD de simulation
     public void obtenircapteursBDD(String urlApi) {
+        int i = 0;
         this.api = new DialogueExterneAPI(urlApi);
 
         // Récupération de tous les capteurs de la base de données
@@ -77,10 +78,10 @@ public class CapteurModel {
         logger.info("JSON Reçu : " + json);
 
         // Création des objets Capteurs
-        for (int i = 0; i < json.length(); i++) {
+        for (i = 0; i < json.length(); i++) {
             capteurs.add(new Capteur(this.json.getJSONObject(i)));
-            logger.info("Capteurs récupéré : \n" + capteurs.get(i).toString());
         }
+        logger.info(i + " capteurs récupérés");
     }
 
     // Méthode permettant de créer nbCapteur capteurs, de les ajouter à la liste de capteurs et de l'ajouter en BDD
@@ -104,17 +105,17 @@ public class CapteurModel {
             );
             capteurs.add(capteur);
             jsonArray.put(capteur.toJson());
-            logger.info("Capteurs créer : \n" + capteur);
+            logger.info("Capteurs créer");
         }
 
         // Envoi à la base de données
-        logger.info("JSON complet : \n" + jsonArray);
         this.api = new DialogueExterneAPI(urlApi);
         codeRetour = this.api.setDonnees("capteurs", jsonArray);
         if (codeRetour == 201) {
             logger.info("Liste de capteurs inséré dans la base");
         } else {
-            logger.info("Erreur lors de l'insertion dans la base");
+            logger.info("ERREUR - Liste non inséré dans la base");
+            capteurs.clear();
         }
     }
 

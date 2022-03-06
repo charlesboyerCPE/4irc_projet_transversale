@@ -7,7 +7,11 @@ import src.commun.Coordonnees;
 
 public class Camion {
     private int id_camion;
+    private int id_caserne;
     private final String type;
+    private boolean disponibilite;
+    private int nb_pompier;
+    private int capacite;
     private Coordonnees coord;
     private Coordonnees coordDestination;
 
@@ -23,6 +27,14 @@ public class Camion {
 
     public Camion(JSONObject json) {
         this.id_camion = json.getInt("id_camion");
+        this.id_caserne = json.getInt("id_caserne");
+        if (json.getInt("disponibilite") == 1) {
+            this.disponibilite = true;
+        } else {
+            this.disponibilite = false;
+        }
+        this.nb_pompier = json.getInt("nb_pompier");
+        this.capacite = json.getInt("capacite");
         this.type = json.getString("type_produit");
         this.coord = new Coordonnees(json.getFloat("coordonnee_x"), json.getFloat("coordonnee_y"));
         this.coordDestination = new Coordonnees(json.getFloat("coordonnee_dest_x"), json.getFloat("coordonnee_dest_y"));
@@ -56,12 +68,20 @@ public class Camion {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
 
-        json.put("id_camion", this.getId_camion());
-        json.put("type_produit", this.getType());
+        json.put("id_camion", this.id_camion);
+        json.put("id_caserne", this.id_caserne);
+        json.put("type_produit", this.type);
+        if (this.disponibilite == true) {
+            json.put("disponibilite", "1");
+        } else {
+            json.put("disponibilite", "0");
+        }
+        json.put("capacite", this.capacite);
+        json.put("nb_pompier", this.nb_pompier);
         json.put("coordonnee_x", this.coord.getX());
         json.put("coordonnee_y", this.coord.getY());
-        json.put("coordonnee_dest_x", this.coord.getX());
-        json.put("coordonnee_dest_y", this.coord.getY());
+        json.put("coordonnee_dest_x", this.coordDestination.getX());
+        json.put("coordonnee_dest_y", this.coordDestination.getY());
         return json;
     }
 
