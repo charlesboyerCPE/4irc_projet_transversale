@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import src.commun.Capteur;
 import src.commun.Coordonnees;
 import src.commun.Feu;
-import src.commun.Utils.GlobalProperties;
+import src.commun.utils.GlobalProperties;
 
 import src.emergencymanager.model.CamionModel.Camion;
 import src.emergencymanager.model.CamionModel.CamionModel;
@@ -63,8 +63,25 @@ public class Controller extends TimerTask {
         }
 
         // Vérification des feux en cours
-        identifierIncident(capteurs, camions, incidents);
-
+        /*if(incidents.size() == 0) {
+            for (int i = 0; i < capteurs.size(); i++) {
+                if(capteurs.get(i).getIntensite() > 0) {
+                    Camion camion;
+                    incidentModel.creerIncident(
+                            GlobalProperties.API_EM_LOCAL,
+                            feuModel.genererFeu(GlobalProperties.API_EM_LOCAL,
+                                    capteurs.get(i).getIdCapteur(),
+                                    capteurs.get(i).getIntensite(),
+                                    capteurs.get(i).getCoord().getX(),
+                                    capteurs.get(i).getCoord().getY()
+                            ),
+                            camion = getCamionPlusProche(camions, capteurs.get(i))
+                    );
+                }
+            }
+        } else {
+            identifierIncident(capteurs, camions, incidents);
+        }*/
     }
 
     // Méthode permettant d'obtenir toutes les données de la base
@@ -97,8 +114,7 @@ public class Controller extends TimerTask {
                     capteurTemp.add(capteurs.get(j));
 
                     if(capteurs.get(j).getIntensite() == 0) {
-                        // TODO Libéré le camion (coordonnee caserne)
-                        incidentModel.supprimerIncident(GlobalProperties.API_EM_LOCAL);
+                        //incidentModel.supprimerIncident(GlobalProperties.API_EM_LOCAL);
                     } else {
                         incidents.get(i).getFeu().setIntensite(capteurs.get(j).getIntensite());
                     }

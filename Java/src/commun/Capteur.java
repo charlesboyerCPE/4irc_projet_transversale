@@ -11,6 +11,8 @@ package src.commun;
 import org.json.JSONObject;
 import org.apache.log4j.Logger;
 
+import java.util.Objects;
+
 public class Capteur {
     private final int id_capteur;
     private final int perimetre;
@@ -103,5 +105,18 @@ public class Capteur {
                 "\n\tintensite=" + intensite +
                 "\n\tcoord=" + coord +
                 " \n}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Capteur capteur = (Capteur) o;
+        return id_capteur == capteur.id_capteur && perimetre == capteur.perimetre && intensite == capteur.intensite && isAlive == capteur.isAlive && Objects.equals(coord, capteur.coord) && Objects.equals(logger, capteur.logger);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_capteur, perimetre, intensite, isAlive, coord, logger);
     }
 }

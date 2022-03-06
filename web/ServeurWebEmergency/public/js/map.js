@@ -1,5 +1,5 @@
 function requeteApi(element, methode){
-    let requestURL = 'http://webemergency/api/'+element;
+    let requestURL = 'http://127.0.0.1/~atma/4IRC/projet_4IRC_transversale/web/ServeurWebEmergency/api/'+element;
     let request = new XMLHttpRequest();
     request.open(methode, requestURL);
     request.responseType = 'json';   

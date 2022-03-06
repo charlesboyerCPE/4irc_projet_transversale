@@ -39,8 +39,6 @@ public class DialogueExterneAPI
             this.connection.setRequestMethod(methode);
             this.connection.setRequestProperty("Content-Type", "application/json; utf-8");
 
-            logger.info("Connexion à l'URL : " + urlAPI + urlFin);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +57,6 @@ public class DialogueExterneAPI
             // Création requête
             creerRequete("GET", url);
             codeRetour = this.connection.getResponseCode();
-            logger.info("Connexion API: " + codeRetour + " " + this.connection.getResponseMessage());
 
             if(codeRetour == HttpURLConnection.HTTP_OK) {
 
@@ -74,12 +71,12 @@ public class DialogueExterneAPI
                 }
 
                 // Parser la réponse
-                logger.info("Reponse: " + reponse);
+
                 json = new JSONArray(reponse.toString());
 
                 // Fermeture de la connexion
                 is.close();
-                logger.info("Connexion fermée");
+
 
             } else {
                 logger.info("ERREUR Code Retour HTTP: " + codeRetour + " " + this.connection.getResponseMessage());
@@ -106,15 +103,12 @@ public class DialogueExterneAPI
 
             // Récupération de la réponse de l'API
             codeRetour = this.connection.getResponseCode();
-            if(codeRetour == HttpURLConnection.HTTP_CREATED) {
-                logger.info("MaJ des données effectuées: " + codeRetour + " " + this.connection.getResponseMessage());
-            } else {
+            if(codeRetour != HttpURLConnection.HTTP_CREATED) {
                 logger.info("ERREUR MaJ Données : " + codeRetour + " " + this.connection.getResponseMessage());
             }
 
             // Fermeture de la connexion
             os.close();
-            logger.info("Connexion fermée");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -131,11 +125,6 @@ public class DialogueExterneAPI
             // Création requête
             creerRequete("DELETE", url);
             codeRetour = this.connection.getResponseCode();
-            logger.info("Code Retour HTTP: " + codeRetour);
-
-            if(codeRetour == HttpURLConnection.HTTP_ACCEPTED) {
-                logger.info("DELETE Effectue: " + codeRetour);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }

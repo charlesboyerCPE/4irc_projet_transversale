@@ -1,12 +1,13 @@
 package src.emergencymanager.model.CapteurModel;
 import src.commun.Capteur;
-import src.commun.Api.DialogueExterneAPI;
 
 import org.json.JSONArray;
 import org.apache.log4j.Logger;
+import src.commun.api.DialogueExterneAPI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class CapteurModel {
@@ -119,6 +120,19 @@ public class CapteurModel {
 
     public List<Capteur> getCapteurs() {
         return capteurs;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CapteurModel that = (CapteurModel) o;
+        return Objects.equals(capteurs, that.capteurs) && Objects.equals(api, that.api) && Objects.equals(json, that.json) && Objects.equals(logger, that.logger);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(capteurs, api, json, logger);
     }
 }
 

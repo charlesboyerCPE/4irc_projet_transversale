@@ -60,9 +60,8 @@ public class Camion {
         json.put("type_produit", this.getType());
         json.put("coordonnee_x", this.coord.getX());
         json.put("coordonnee_y", this.coord.getY());
-
-        logger.info("JSON créer : " + json);
-
+        json.put("coordonnee_dest_x", this.coord.getX());
+        json.put("coordonnee_dest_y", this.coord.getY());
         return json;
     }
 

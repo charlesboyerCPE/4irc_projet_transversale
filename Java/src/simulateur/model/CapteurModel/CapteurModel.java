@@ -1,7 +1,7 @@
 package src.simulateur.model.CapteurModel;
 
 import src.commun.Capteur;
-import src.commun.Api.DialogueExterneAPI;
+import src.commun.api.DialogueExterneAPI;
 
 import org.json.JSONArray;
 import org.apache.log4j.Logger;
@@ -70,18 +70,17 @@ public class CapteurModel {
     }
 
     // Méthode permettant d'obtenir tous les capteurs présent dans la BDD de simulation
-    public void obtenircapteursBDD(String urlApi) {
+    public void obtenirCapteursBDD(String urlApi) {
         this.api = new DialogueExterneAPI(urlApi);
 
         // Récupération de tous les capteurs de la base de données
         this.json = this.api.getDonnees("capteurs");
-        logger.info("JSON Reçu : " + json);
 
         // Création des objets Capteurs
         for (int i = 0; i < json.length(); i++) {
             capteurs.add(new Capteur(this.json.getJSONObject(i)));
-            logger.info("Capteurs récupéré : \n" + capteurs.get(i).toString());
         }
+        logger.info(capteurs.size() + " capteurs recupérés");
     }
 
     // Méthode permettant de créer nbCapteur capteurs, de les ajouter à la liste de capteurs et de l'ajouter en BDD
@@ -124,15 +123,14 @@ public class CapteurModel {
         int codeRetour = -1;
         JSONArray jsonArray = new JSONArray();
 
-        // Modification intensité
         switch (mode) {
             case 1 -> { // Augmentation
                 capteurs.get(id_capteur).setIntensite(capteurs.get(id_capteur).getIntensite() + 1);
-                logger.info("[modificationIntensite()] - Intensité du Capteur n°" + id_capteur + " augmenté");
+                logger.info("Intensité du Capteur n°" + id_capteur + " augmenté : " + capteurs.get(id_capteur).getIntensite());
             }
             case 2 -> { // Diminution
                 capteurs.get(id_capteur).setIntensite(capteurs.get(id_capteur).getIntensite() - 1);
-                logger.info("[modificationIntensite()] - Intensité du Capteur n°" + id_capteur + " baissé");
+                logger.info("Intensité du Capteur n°" + id_capteur + " baissé: " + capteurs.get(id_capteur).getIntensite());
             }
         }
 
@@ -143,9 +141,9 @@ public class CapteurModel {
         this.api = new DialogueExterneAPI(urlApi);
         codeRetour = this.api.setDonnees("capteurs", jsonArray);
         if(codeRetour == 201) {
-            logger.info("[modificationIntensite()] - Intensité du Capteur n°" + id_capteur + " modifié");
+            logger.info("Intensité du Capteur n°" + id_capteur + " modifié en base");
         } else {
-            logger.error("[modificationIntensite()] - Inténsité du Capteur n°" + id_capteur + " non modifié");
+            logger.error("Inténsité du Capteur n°" + id_capteur + " non modifié en base");
         }
     }
 

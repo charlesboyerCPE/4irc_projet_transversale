@@ -2,7 +2,8 @@ package src.emergencymanager.model.FeuModel;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
-import src.commun.Api.DialogueExterneAPI;
+
+import src.commun.api.DialogueExterneAPI;
 import src.commun.Capteur;
 import src.commun.Feu;
 

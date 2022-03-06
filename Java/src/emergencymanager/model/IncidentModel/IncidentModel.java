@@ -2,10 +2,10 @@ package src.emergencymanager.model.IncidentModel;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
-import src.commun.Api.DialogueExterneAPI;
+
+import src.commun.api.DialogueExterneAPI;
 import src.commun.Feu;
 import src.emergencymanager.model.CamionModel.Camion;
-import src.emergencymanager.model.FeuModel.FeuModel;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -73,8 +73,23 @@ public class IncidentModel {
     }
 
     // Méthode permettant de supprimer une opération
-    public void supprimerIncident(String urlApi) {
+    public void supprimerIncident(String urlApi, int id_feu) {
+        int codeRetour = -1;
 
+        this.api = new DialogueExterneAPI(urlApi);
+
+        for(int i = 0; i < incidents.size(); i++) {
+            if (incidents.get(i).getFeu().getIdFeu() == id_feu) {
+                incidents.remove(i);
+            }
+        }
+
+        codeRetour = this.api.deleteDonnees("operation/" + id_feu);
+        if(codeRetour == 200) {
+            logger.info("Incident n°" + id_feu + " supprimé");
+        } else {
+            logger.error("Incident n°" + id_feu + " non supprimé");
+        }
     }
 
     public List<Incident> getIncidents() {

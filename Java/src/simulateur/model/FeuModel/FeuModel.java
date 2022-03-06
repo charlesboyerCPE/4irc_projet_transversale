@@ -2,7 +2,7 @@ package src.simulateur.model.FeuModel;
 
 import src.commun.Capteur;
 import src.commun.Feu;
-import src.commun.Api.DialogueExterneAPI;
+import src.commun.api.DialogueExterneAPI;
 
 import org.json.JSONArray;
 import org.apache.log4j.Logger;
@@ -33,17 +33,17 @@ public class FeuModel {
 
         // Récupération de tous les feux de la base de données
         this.json = this.api.getDonnees("feux");
-        logger.info("[obtenirFeuxBDD()] JSON Reçu : \n" + json);
 
         // Création des objets Feu
         for (int i = 0; i < json.length(); i++) {
             for(int j = 0; j < capteurs.size(); j++) {
                 if (capteurs.get(j).getIdCapteur() == json.getJSONObject(i).getInt("id_capteur")) {
                     feux.add(new Feu(this.json.getJSONObject(i), capteurs.get(j)));
-                    logger.info("[obtenirFeuxBDD()] Camion récupéré : \n" + feux.get(i).toString());
                 }
             }
         }
+
+        logger.info(feux.size() + " feu récupérés");
     }
 
     // Méthode générant un feu aux coordonnées du capteur en paramètre et l'ajoute en base de données
@@ -59,16 +59,15 @@ public class FeuModel {
             feu = new Feu(feux.size(), id_capteur, 0, intensite, x, y);
         }
 
-        logger.info("Feu généré : " + feu);
         feux.add(feu);
+        logger.info("Feu généré au capteur id n°: " + feu.getId_capteur());
 
         // Ajout dans le JSON
         jsonArray.put(feu.toJson());
 
         // Envoi à l'API
         this.api = new DialogueExterneAPI(urlApi);
-        logger.info("JSON complet : \n" + jsonArray);
-        codeRetour = this.api.setDonnees("feux", jsonArray);
+        codeRetour = api.setDonnees("feux", jsonArray);
         if (codeRetour == 201) {
             logger.info("Feu inséré dans la base");
         } else {
@@ -105,11 +104,11 @@ public class FeuModel {
         switch (mode) {
             case 1 -> { // Augmentation
                 feux.get(idFeu).setIntensite(feux.get(idFeu).getIntensite() + 1);
-                logger.info("[modificationIntensite()] - Intensité du Feu n°" + idFeu + " augmenté");
+                logger.info("Intensité du Feu n°" + idFeu + " augmenté : " + feux.get(idFeu).getIntensite());
             }
             case 2 -> { // Diminution
                 feux.get(idFeu).setIntensite(feux.get(idFeu).getIntensite() - 1);
-                logger.info("[modificationIntensite()] - Intensité du Feu n°" + idFeu + " baissé");
+                logger.info("Intensité du Feu n°" + idFeu + " baissé : " + feux.get(idFeu).getIntensite());
             }
         }
 
@@ -120,9 +119,9 @@ public class FeuModel {
         this.api = new DialogueExterneAPI(urlApi);
         codeRetour = this.api.setDonnees("feux", jsonArray);
         if(codeRetour == 201) {
-            logger.info("[modificationIntensite()] - Intensité du Feu n°" + idFeu + " modifié");
+            logger.info("Intensité du Feu n°" + idFeu + " modifié dans la base");
         } else {
-            logger.error("[modificationIntensite()] - Inténsité du Feu n°" + idFeu + " non modifié");
+            logger.error("Inténsité du Feu n°" + idFeu + " non modifié dans la base");
         }
     }
 

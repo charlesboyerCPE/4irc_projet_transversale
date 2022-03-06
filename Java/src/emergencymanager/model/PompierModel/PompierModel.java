@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.commun.Api.DialogueExterneAPI;
+import src.commun.api.DialogueExterneAPI;
 import src.emergencymanager.model.CaserneModel.Caserne;
 
 

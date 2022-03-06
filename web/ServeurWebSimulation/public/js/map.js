@@ -62,8 +62,8 @@ function afficheMap(map){
     var listeCapteurs;
     var listeFeux;
 
-    /*
-    let requestCamions = requeteApi('http://192.168.1.35:80/4irc_projet_transversale/web/ServeurWebSimulation/api/camions', 'GET');
+    
+    let requestCamions = requeteApi('http://127.0.0.1/~atma/4IRC/projet_4IRC_transversale/web/ServeurWebEmergency/api/camions', 'GET');
     requestCamions.onload = function() {
         listeCamions = requestCamions.response;   
         for(var i in listeCamions){
@@ -77,9 +77,9 @@ function afficheMap(map){
         layerGroup.addTo(map);
     }
     requestCamions.send();
-    */
+    
 
-    let requestCapteurs = requeteApi('http://websimulateur/api/capteurs', 'GET');
+    let requestCapteurs = requeteApi('http://127.0.0.1/~atma/4IRC/projet_4IRC_transversale/web/ServeurWebSimulation/api/capteurs', 'GET');
     requestCapteurs.onload = function() {
         listeCapteurs = requestCapteurs.response;   
         for(var i in listeCapteurs){
@@ -92,7 +92,7 @@ function afficheMap(map){
     }
     requestCapteurs.send();
 
-    let requestFeux = requeteApi('http://websimulateur/api/feux', 'GET');
+    let requestFeux = requeteApi('http://127.0.0.1/~atma/4IRC/projet_4IRC_transversale/web/ServeurWebSimulation/api/feux', 'GET');
     requestFeux.onload = function() {
         listeFeux = requestFeux.response;   
         for(var i in listeFeux){

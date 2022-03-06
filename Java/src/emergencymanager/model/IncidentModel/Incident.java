@@ -5,8 +5,7 @@ import org.json.JSONObject;
 import src.commun.Feu;
 import src.emergencymanager.model.CamionModel.Camion;
 
-
-    public class Incident {
+public class Incident {
     private final Feu feu;
     private final Camion camion;
 

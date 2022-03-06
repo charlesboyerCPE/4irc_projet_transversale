@@ -3,7 +3,7 @@ package src.emergencymanager.model.CaserneModel;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 
-import src.commun.Api.DialogueExterneAPI;
+import src.commun.api.DialogueExterneAPI;
 import src.emergencymanager.model.PompierModel.Pompier;
 
 import java.net.HttpURLConnection;
@@ -26,7 +26,7 @@ public class CaserneModel {
     }
 
     // Méthode permettant d'initialiser la liste des casernes
-    public void initialiserCasernes(String urlApi, int nbCasernes, List<Pompier> pompiers) {
+    public void creerCasernes(String urlApi, int nbCasernes, List<Pompier> pompiers) {
         int codeRetour = -1;
 
         this.api = new DialogueExterneAPI(urlApi);

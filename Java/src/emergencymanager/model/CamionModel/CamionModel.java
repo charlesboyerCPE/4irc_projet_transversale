@@ -1,7 +1,7 @@
 package src.emergencymanager.model.CamionModel;
 
 import org.json.JSONArray;
-import src.commun.Api.DialogueExterneAPI;
+import src.commun.api.DialogueExterneAPI;
 
 import org.apache.log4j.Logger;
 import src.emergencymanager.model.CaserneModel.Caserne;

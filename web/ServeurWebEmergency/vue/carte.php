@@ -20,7 +20,7 @@
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin="">
 </script>
-<script type="text/javascript" src="../public/js/map.js"></script>
+<script type="text/javascript" src="./public/js/map.js"></script>
 <script>
    var map = L.map('map').setView([45.764043, 4.835659], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

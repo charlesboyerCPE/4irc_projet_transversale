@@ -3,16 +3,12 @@ package src.commun;
 import org.json.JSONObject;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Feu {
 
     private int id_feu;
     private int id_capteur;
     private int frequence;
     private int intensite;
-    private boolean traitement;
 
     private Coordonnees coord;
 
@@ -24,7 +20,6 @@ public class Feu {
         this.frequence = 0;
         this.intensite = 0;
         this.coord = new Coordonnees(0,0);
-        this.traitement = false;
         this.logger = Logger.getLogger(Feu.class);
     }
 
@@ -35,7 +30,6 @@ public class Feu {
         this.frequence = frequence;
         this.intensite = intensite;
         this.coord = new Coordonnees(x, y);
-        this.traitement = false;
         this.logger = Logger.getLogger(String.valueOf(Feu.class));
     }
 
@@ -82,8 +76,6 @@ public class Feu {
         json.put("frequence", this.getFrequence());
         json.put("coordonnee_x", this.getCoord().getX());
         json.put("coordonnee_y", this.getCoord().getY());
-
-        logger.info("JSON créer : " + json);
 
         return json;
     }
